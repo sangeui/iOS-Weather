@@ -8,3 +8,4 @@
 enum APIKey {
     static let openWeatherMap = "9a6e3187d68a2474dc8bbe68abb578d1"
 }
+
