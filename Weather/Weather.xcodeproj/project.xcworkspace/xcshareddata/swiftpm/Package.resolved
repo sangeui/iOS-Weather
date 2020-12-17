@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SangeuiLayout",
+        "repositoryURL": "https://github.com/sangeui/SangeuiLayout.git",
+        "state": {
+          "branch": "main",
+          "revision": "aff306b5c1d605aac9ac1bcdc50b4c5edaafa0c0",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
