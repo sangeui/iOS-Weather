@@ -6,7 +6,9 @@
 //
 
 import UIKit
+import SangeuiLayout
 
-class ViewController: UIViewController {
-    
+public class ContainerViewController: UIViewController {
+    public override func viewDidLoad() {
+    }
 }

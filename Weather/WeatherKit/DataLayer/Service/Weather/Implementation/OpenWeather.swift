@@ -32,16 +32,17 @@ class OpenWeather: WeatherProvider {
     /// - Parameters:
     ///   - coordination: 날씨 정보를 요청하고자 하는 위치의 좌표
     ///   - options: 날씨 정보에 포함될 항목을 지정
-    ///   - completion: <#completion description#>
-    func weather(coordination: Coordination,
+    ///   - completion: 성공시에만 `WeatherModel.Data`를 `.success`에 담아 전달함.
+    func weather(coordination: Location,
                  options: [ForecastOption],
                  _ completion: @escaping WeatherHandler) {
         let query = makeQuery(with: coordination, options: options)
         let url = endPoint + query
+        networking.execute(url, completion: completion)
     }
 }
 private extension OpenWeather {
-    func makeQuery(with coord: Coordination, options: [ForecastOption]) -> String {
+    func makeQuery(with coord: Location, options: [ForecastOption]) -> String {
         let include = Set(options.compactMap({$0.rawValue}))
         let exclude = self.options.subtracting(include)
         return Query.OneCall()
@@ -50,46 +51,5 @@ private extension OpenWeather {
             .exclude(exclude.joined(separator: ","))
             .appid(key)
             .build()
-    }
-}
-fileprivate enum Query {
-    class OneCall: QueryBuilder {
-        var root: String = "onecall"
-        var query: String = ""
-        
-        func latitude(_ latitude: String) -> Self {
-            appendParameter("lat=\(latitude)")
-            return self
-        }
-        func longitude(_ longitude: String) -> Self {
-            appendParameter("lon=\(longitude)")
-            return self
-        }
-        func exclude(_ exclude: String) -> Self {
-            appendParameter("exclude=\(exclude)")
-            return self
-        }
-        func appid(_ appid: String) -> Self {
-            appendParameter("appid=\(appid)")
-            return self
-        }
-        func build() -> String {
-            defer { query.removeAll() }
-            return root+query
-        }
-        private func appendParameter(_ parameter: String) {
-            addAmpersandIfNeeded()
-            query.append(parameter)
-        }
-    }
-}
-protocol QueryBuilder: class {
-    var root: String { get }
-    var query: String { get set }
-}
-extension QueryBuilder {
-    func addAmpersandIfNeeded() {
-        if !query.isEmpty { query.append("&") }
-        else { query.append("?") }
     }
 }
