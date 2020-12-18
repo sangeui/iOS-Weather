@@ -47,6 +47,7 @@
 		4FF8C51825789DC100F34C0F /* SangeuiLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4FF8C51725789DC100F34C0F /* SangeuiLayout */; };
 		4FFB51A0258C8A3700647E79 /* UserDefaultsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB519F258C8A3700647E79 /* UserDefaultsBase.swift */; };
 		4FFB51A8258C8A9500647E79 /* UserDefaults+CustomSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51A7258C8A9500647E79 /* UserDefaults+CustomSuite.swift */; };
+		4FFB51AE258CA2F600647E79 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51AD258CA2F600647E79 /* StorageTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		4FCA9ED92577CA81009C3986 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4FFB519F258C8A3700647E79 /* UserDefaultsBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsBase.swift; sourceTree = "<group>"; };
 		4FFB51A7258C8A9500647E79 /* UserDefaults+CustomSuite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+CustomSuite.swift"; sourceTree = "<group>"; };
+		4FFB51AD258CA2F600647E79 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 		4F1499E0258B49E00053D203 /* StorageTests */ = {
 			isa = PBXGroup;
 			children = (
+				4FFB51AD258CA2F600647E79 /* StorageTests.swift */,
 				4F1499F5258B556F0053D203 /* UserDefaults */,
 			);
 			path = StorageTests;
@@ -749,6 +752,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F1499E2258B4A080053D203 /* UserDefaultsTests.swift in Sources */,
+				4FFB51AE258CA2F600647E79 /* StorageTests.swift in Sources */,
 				4F1499F0258B550A0053D203 /* UnitDefaultsTests.swift in Sources */,
 				4F1499F7258B55820053D203 /* LocationsDefaultsTests.swift in Sources */,
 			);

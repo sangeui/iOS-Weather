@@ -7,4 +7,3 @@
 enum TemperatureUnit: String {
     case fahrenheit, celsius
 }
-extension TemperatureUnit: PropertyListValue {}

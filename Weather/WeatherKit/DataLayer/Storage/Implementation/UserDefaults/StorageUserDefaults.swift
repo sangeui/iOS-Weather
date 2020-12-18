@@ -49,19 +49,6 @@ class StorageUserDefaults: Storage {
     }
 }
 
-protocol PropertyListValue {}
-extension Data: PropertyListValue {}
-extension String: PropertyListValue {}
-extension Date: PropertyListValue {}
-extension Bool: PropertyListValue {}
-extension Int: PropertyListValue {}
-extension Double: PropertyListValue {}
-extension Float: PropertyListValue {}
-extension Location: PropertyListValue {}
-
-// Every element must be a property-list type
-extension Array: PropertyListValue where Element: PropertyListValue {}
-extension Dictionary: PropertyListValue where Key == String, Value: PropertyListValue {}
 struct Key: RawRepresentable {
     let rawValue: String
 }
@@ -69,6 +56,6 @@ extension Key: ExpressibleByStringLiteral {
     init(stringLiteral: String) { rawValue = stringLiteral }
 }
 extension Key {
-    static let unitOfTemperature: Key = "unitOfTemperature"
+    static let temperatureUnit: Key = "temperatureUnit"
     static let locations: Key = "locations"
 }

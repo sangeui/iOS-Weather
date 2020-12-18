@@ -13,7 +13,7 @@ class UnitDefaultsTests: XCTestCase {
     var defaults: UserDefaults!
 
     func createUnitDefaults() -> UnitDefaults {
-        let keyForUnitDefaults = Key.unitOfTemperature
+        let keyForUnitDefaults = Key.temperatureUnit
         return UnitDefaults(key: keyForUnitDefaults, defaults: defaults)
     }
     override func setUpWithError() throws {

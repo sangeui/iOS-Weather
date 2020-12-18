@@ -23,7 +23,7 @@ class UserDefaultsTests: XCTestCase {
             print("FAILED TO RECEIVING FILE PATH")
     }
     func createUnitDefaults() -> UnitDefaults {
-        let keyForUnitDefaults = Key.unitOfTemperature
+        let keyForUnitDefaults = Key.temperatureUnit
         return UnitDefaults(key: keyForUnitDefaults, defaults: defaults)
     }
     

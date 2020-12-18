@@ -18,7 +18,7 @@ struct UnitDefaults: UserDefaultsBase {
         }
         set {
             guard let value = newValue else { return }
-            defaults.setValue(value, forKey: key.rawValue)
+            defaults.setValue(value.rawValue, forKey: key.rawValue)
         }
     }
 }
