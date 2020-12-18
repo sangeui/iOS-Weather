@@ -56,8 +56,8 @@ class LocationsDefaultsTests: XCTestCase {
         defaults = nil
         locationsDefaults = nil
     }
-    func testUserSavedLocationSaveLoadOperation() {
-        // Given
+    func testSingleUserSavedLocationsSaveLoadOperation() {
+        // Given 
         let singleUserSavedLocation = LocationsMock.single
         locationsDefaults.value = singleUserSavedLocation
         // When
@@ -65,5 +65,15 @@ class LocationsDefaultsTests: XCTestCase {
         // Then
         XCTAssertNotNil(savedLocations)
         XCTAssertEqual(savedLocations!, singleUserSavedLocation)
+    }
+    func testMultipleUserSavedLocationsSaveLoadOperation() {
+        // Given
+        let multipleUserSavedLocations = LocationsMock.multiple
+        locationsDefaults.value = multipleUserSavedLocations
+        // When
+        let savedLocations = locationsDefaults.value
+        // Then
+        XCTAssertNotNil(savedLocations)
+        XCTAssertEqual(savedLocations!, multipleUserSavedLocations)
     }
 }
