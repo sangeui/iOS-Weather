@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct UnitDefaults {
-    let key: Key
-    let defaults: UserDefaults
+struct UnitDefaults: UserDefaultsBase {
+    var key: Key
+    var defaults: UserDefaults
     
     var value: TemperatureUnit? {
         get {
@@ -17,9 +17,8 @@ struct UnitDefaults {
             return TemperatureUnit(rawValue: data)
         }
         set {
-            if let data = newValue as? TemperatureUnit {
-                defaults.setValue(data.rawValue, forKey: key.rawValue)
-            }
+            guard let value = newValue else { return }
+            defaults.setValue(value, forKey: key.rawValue)
         }
     }
 }

@@ -49,56 +49,6 @@ class StorageUserDefaults: Storage {
     }
 }
 
-
-extension UserDefaults {
-    static var shared: UserDefaults {
-        let combined = UserDefaults.standard
-        combined.addSuite(named: "Weather")
-        return combined
-    }
-}
-protocol UserDefaultsBase {}
-extension UserDefaultsBase {
-    var encoder: PropertyListEncoder { return PropertyListEncoder() }
-    var decoder: PropertyListDecoder { return PropertyListDecoder() }
-    var standard: UserDefaults { return UserDefaults.standard }
-}
-
-@propertyWrapper
-struct WeatherTempUnitUserDefaults<T: PropertyListValue>: UserDefaultsBase {
-    let key: Key
-    let defaults: UserDefaults
-    var wrappedValue: T? {
-        get {
-            let value = defaults.value(forKey: key.rawValue) as! String
-            return TemperatureUnit(rawValue: value) as? T
-        }
-        set {
-            if let value = newValue as? TemperatureUnit {
-                defaults.setValue(value.rawValue, forKey: key.rawValue)
-            }
-            
-        }
-    }
-}
-@propertyWrapper
-struct WeatherLocationsUserDefaults<T: PropertyListValue & Codable>: UserDefaultsBase {
-    let key: Key
-    let defaults: UserDefaults
-    var wrappedValue: T? {
-        get {
-            guard let data = defaults.value(forKey: key.rawValue) as? Data else { return nil }
-            guard let locations = try? decoder.decode([[String:Location]].self, from: data) else { return nil }
-            return locations as? T
-        }
-        set {
-            
-            if let data = try? encoder.encode(newValue) {
-                defaults.setValue(data, forKey: key.rawValue)
-            }
-        }
-    }
-}
 protocol PropertyListValue {}
 extension Data: PropertyListValue {}
 extension String: PropertyListValue {}
