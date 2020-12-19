@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4F0A7E0A258A076900C73CD1 /* WeatherForecastOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A7E09258A076900C73CD1 /* WeatherForecastOption.swift */; };
 		4F0A7E10258A079500C73CD1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A7E0F258A079500C73CD1 /* Location.swift */; };
-		4F0A7E20258A094000C73CD1 /* WeatherNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A7E1F258A094000C73CD1 /* WeatherNetworking.swift */; };
 		4F1499D7258B43F80053D203 /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1499D6258B43F80053D203 /* TemperatureUnit.swift */; };
 		4F1499E2258B4A080053D203 /* UserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1499E1258B4A080053D203 /* UserDefaultsTests.swift */; };
 		4F1499F0258B550A0053D203 /* UnitDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1499EF258B550A0053D203 /* UnitDefaultsTests.swift */; };
@@ -108,7 +107,6 @@
 /* Begin PBXFileReference section */
 		4F0A7E09258A076900C73CD1 /* WeatherForecastOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastOption.swift; sourceTree = "<group>"; };
 		4F0A7E0F258A079500C73CD1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		4F0A7E1F258A094000C73CD1 /* WeatherNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworking.swift; sourceTree = "<group>"; };
 		4F1499D6258B43F80053D203 /* TemperatureUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
 		4F1499E1258B4A080053D203 /* UserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTests.swift; sourceTree = "<group>"; };
 		4F1499EF258B550A0053D203 /* UnitDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDefaultsTests.swift; sourceTree = "<group>"; };
@@ -501,7 +499,6 @@
 			isa = PBXGroup;
 			children = (
 				4FFB51BC258DD28000647E79 /* URLSession+NetworkSession.swift */,
-				4F0A7E1F258A094000C73CD1 /* WeatherNetworking.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -763,7 +760,6 @@
 			files = (
 				4F571F7E2589DF0D00F1EDBD /* NetworkSession.swift in Sources */,
 				4F1CEFFF258B65EF00686C73 /* APIKey.swift in Sources */,
-				4F0A7E20258A094000C73CD1 /* WeatherNetworking.swift in Sources */,
 				4FB31382258A16DF00BD6B5E /* StorageUserDefaults.swift in Sources */,
 				4F5F17EA257F79FF00DFF1F6 /* NetworkManager.swift in Sources */,
 				4F1499D7258B43F80053D203 /* TemperatureUnit.swift in Sources */,
