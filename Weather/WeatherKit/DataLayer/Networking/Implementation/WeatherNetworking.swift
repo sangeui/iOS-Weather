@@ -8,11 +8,9 @@
 import Foundation
 
 class WeatherNetworking: NetworkSession {
-    func execute<T>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
-        guard let validURL = URL(string: url)
-        else { completion(.failure(_error(type: .url, url))); return }
-        
-        let request = URLRequest(url: validURL)
+    
+    func execute<T>(_ url: URL, completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
+        let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 if let error = error { completion(.failure(error)); return }

@@ -277,6 +277,9 @@
 		4F5F17DC257F5B0100DFF1F6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				4FFB51C6258E053000647E79 /* NetworkManager */,
+				4FFB51C8258E053A00647E79 /* NetworkSession */,
+				4FFB51C9258E054000647E79 /* WeatherProvider */,
 				4F571F7D2589DF0D00F1EDBD /* NetworkSession.swift */,
 				4F0A7E29258A094A00C73CD1 /* Implementation */,
 				4F513E2D258A09A90038C84B /* NetworkingError */,
@@ -297,7 +300,6 @@
 		4F5F17E8257F79EC00DFF1F6 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
-				4F5F17E9257F79FF00DFF1F6 /* NetworkManager.swift */,
 				4F1CEFFE258B65EF00686C73 /* APIKey.swift */,
 			);
 			path = Implementation;
@@ -486,6 +488,28 @@
 				4FFB51A7258C8A9500647E79 /* UserDefaults+CustomSuite.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4FFB51C6258E053000647E79 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				4F5F17E9257F79FF00DFF1F6 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		4FFB51C8258E053A00647E79 /* NetworkSession */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkSession;
+			sourceTree = "<group>";
+		};
+		4FFB51C9258E054000647E79 /* WeatherProvider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WeatherProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
