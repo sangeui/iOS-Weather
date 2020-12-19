@@ -12,7 +12,7 @@ class OpenWeather: WeatherProvider {
     let queryBuilder: QueryBuilder
     
     /// Protocol `Networking` 구현체
-    let networking: Networking
+    let networking: NetworkSession
     
     /// 파라미터를 제외한 API 호출 엔드포인트를 유지
     let endPoint: String = "https://api.openweathermap.org/data/2.5/"
@@ -23,7 +23,7 @@ class OpenWeather: WeatherProvider {
     ///
     private let key = APIKey.openWeatherMap
     
-    init(queryBuilder: QueryBuilder, networking: Networking) {
+    init(queryBuilder: QueryBuilder, networking: NetworkSession) {
         self.queryBuilder = queryBuilder
         self.networking = networking
     }
@@ -37,8 +37,13 @@ class OpenWeather: WeatherProvider {
                  options: [ForecastOption],
                  _ completion: @escaping WeatherHandler) {
         let query = makeQuery(with: coordination, options: options)
-        let url = endPoint + query
-        networking.execute(url, completion: completion)
+        let urlString = endPoint + query
+        if let url = URL(string: urlString) {
+            networking.execute(url, completion: completion)
+        } else {
+            let error = NetworkingErrorType.url.make("PASSED INVALID URL")
+            completion(.failure(error))
+        }
     }
 }
 private extension OpenWeather {

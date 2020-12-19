@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WeatherNetworking: Networking {
+class WeatherNetworking: NetworkSession {
     func execute<T>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
         guard let validURL = URL(string: url)
         else { completion(.failure(_error(type: .url, url))); return }
