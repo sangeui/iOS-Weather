@@ -12,8 +12,5 @@ protocol EndPointable{
 }
 protocol WeatherProvider {
     var endPoint: String { get }
-    func weather(coordination: Location,
-                 options: [ForecastOption],
-                 _ completion: @escaping WeatherHandler)
 }
 
