@@ -153,7 +153,7 @@ struct LocationsDefaults: UserDefaultsBase {
 ```
 # WeatherKit-Network-Part
 
-![WeatherKit-Network-Part%20642519cd6dc54e2995d849aa58543ca8/WeatherKit-Network-Part.png](WeatherKit-Network-Part%20642519cd6dc54e2995d849aa58543ca8/WeatherKit-Network-Part.png)
+![WeatherKit-Network-Part](https://user-images.githubusercontent.com/34618339/102688896-63383b80-423d-11eb-9e99-3f9f42514ad8.png)
 
 WeatherKit-Network-Part Diagram
 
