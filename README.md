@@ -5,6 +5,8 @@
 
 ---
 
+---
+
 # WeatherKit-Persistent Part
 
 ---
@@ -142,5 +144,116 @@ struct LocationsDefaults: UserDefaultsBase {
             defaults.setValue(data, forKey: key.rawValue)
         }
     }
+}
+```
+# WeatherKit-Network-Part
+
+![WeatherKit-Network-Part%20642519cd6dc54e2995d849aa58543ca8/WeatherKit-Network-Part.png](WeatherKit-Network-Part%20642519cd6dc54e2995d849aa58543ca8/WeatherKit-Network-Part.png)
+
+WeatherKit-Network-Part Diagram
+
+## Network Manager
+
+그림에서 알 수 있듯이, 상위 레이어 (UI Layer, 화면에 보여지는 유저 인터페이스 레이어가 아님)와 메시지를 주고 받는, API를 호출하는 진입점 역할을 한다. 
+
+사용할 날씨 정보 제공자를 결정하는 `WeatherProvider`와 실제로 네트워크 통신이 이루어지는 `NetworkSession`의 의존성을 가진다.
+
+```swift
+class NetworkManager {
+    private let provider: WeatherProvider
+    private let session: NetworkSession
+
+    init(provider: WeatherProvider, session: NetworkSession = URLSession.shared) {
+        self.provider = provider
+        self.session = session
+    }
+    ...
+}
+```
+
+- **WeatherProvider**
+
+    날씨 정보 제공자가 바뀌어도 영향이 없도록 프로토콜로 정의했다. 다만 제공자에 따라 하나 혹은 두개 이상의 API 호출이 이루어질 수 있을 것인데, 이것은 고려하지 않았다. 즉, API 호출 하나로 날씨 정보를 가져온다고 가정하고 정의했다. `문제가 될 수 있을 것 같다.`
+
+- **NetworkSession**
+
+    기존에는 URLSession.shared 를 직접 할당했다. 테스트에 문제가 있어 프로토콜을 별도로 정의하고 초기화 단계에서 주입받도록 했다. 
+    기본 값으로 `URLSession.shared` 를 할당할 수 있는 것은 `NetworkSession` 을 따르기 때문이다.
+
+---
+
+```swift
+class NetworkManager {
+    ...
+    func weather(location: Location,
+                                options: [ForecastOption],
+                                completion: @escaping (Result<WeatherModel.Data, Error>) -> Void)
+    ...
+    let url = ... // Make URL whatever way you want.
+    session.execute(url, completion)
+}
+```
+
+- **func weather(location:options:completion:)**
+
+    유일하게 갖는 인터페이스 메소드이다. 파라미터의 이름은 직관적이므로 그 의미를 알기 쉽게 했다. 
+
+    - location: `Location` 타입으로, 좌표 값을 가진다.
+    - options: `ForecastOption` 은 받고자 하는 날씨 예보 `Enum` 타입이다. OpenWeatherMap의 쿼리 파라미터를 기준으로 작성했다. `current` · `minutely` · `hourly` · `daily`, 총 네 종류의 케이스를 가진다.
+    - completion: `Result`를 인자로 받는 클로져이다.
+
+    메소드의 바디에서는 `URL`을 만들고 이를 전달 받은 `completion`과 함께 `session`으로 전달한다. 
+
+## Network Session
+
+언급했던 처럼, `NetworkManager`에서 `URLSession`을 직접 사용하다보니 테스트가 어려웠다. `NetworkSession` 프로토콜을 정의하고 `URLSession`에서 이를 따르도록 확장했다. `NetworkSessionMock`을 만들어 테스트도 가능하다. 
+
+```swift
+protocol NetworkSession {
+    func execute<T: Decodable>(url: URL, completion: @escaping (Result<T, Error>) -> Void)
+}
+```
+
+- **func execute<T: Decodable>(url:completion:)**
+    - url: 기존에는 `String`으로 설정했으나, 검증이 끝난 `URL`을 받아오는 것으로 했다.
+    - completion: `Result`를 인자로 받는 클로져이다.
+
+마지막으로 `URLSession`이 위 프로토콜을 따르도록 확장했다.
+
+```swift
+extension URLSession: NetworkSession {
+    func execute<T>(url: URL, completion: @escaping (Result<T, Error>) -> Void) where T: Decodable {
+        let task = dataTask(with: url, completionHandler: {
+            ...
+        }
+        task.resume()
+    }
+}
+```
+
+## Weather Provider
+
+특정 날씨 정보 제공자에게 종속되지 않도록 하기 위한 최소한의 장치로써 해당 프로토콜을 정의했다.
+
+```swift
+protocol WeatherProvider {
+    var apiKey: String? { get }
+    var endPoint: String { get }
+
+    func makeURL(with location: Location, options: [ForecastOption]) -> URL?
+}
+```
+
+위에서 언급한 바와 같이 어떤 하나의 API 호출을 가정하고 OpenWeatherMap을 기준으로 makeURL 메소드를 정의했는데, 위험한 생각이지 않을까 한다. 하지만 불필요하게 (API를 변경할 일이 없으므로) 더 복잡한 구조를 만들고 싶지 않아 위와 같이 두었다. 
+
+```swift
+struct OpenWeatherMapOneCall: WeatherProvider {
+    var apiKey: String? = "..."
+    var endPoint: String = "..."
+
+    func makeURL(with location: Location, options: [ForecastOption]) -> URL? {
+        return URL(string: endPoint + makeQuery(...))
+    }
+    ...
 }
 ```
