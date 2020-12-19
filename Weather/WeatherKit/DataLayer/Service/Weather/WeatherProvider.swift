@@ -12,5 +12,5 @@ protocol EndPointable{
 }
 protocol WeatherProvider {
     var endPoint: String { get }
+    var apiKey: String? { get }
 }
-
