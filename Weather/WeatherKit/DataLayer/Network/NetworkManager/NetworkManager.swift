@@ -12,7 +12,7 @@ class NetworkManager {
     private let networking: NetworkSession
     private let provider: WeatherProvider
     
-    init(provider: WeatherProvider, networking: NetworkSession) {
+    init(provider: WeatherProvider, networking: NetworkSession = URLSession.shared) {
         self.provider = provider
         self.networking = networking
     }
@@ -36,7 +36,7 @@ private extension NetworkManager {
     func url(_ location: Location, _ options: [ForecastOption]) -> URL? {
         return provider.makeURL(with: location, options: options)
     }
-    func error(type: NetworkingErrorType, _ message: String) -> Error {
+    func error(type: NetworkErrorType, _ message: String) -> Error {
         return type.make(message)
     }
 }

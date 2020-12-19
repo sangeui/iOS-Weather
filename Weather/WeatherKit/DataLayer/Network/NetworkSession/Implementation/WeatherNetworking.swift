@@ -24,7 +24,7 @@ class WeatherNetworking: NetworkSession {
     }
 }
 extension WeatherNetworking {
-    func _error(type: NetworkingErrorType, _ message: String) -> NetworkingError {
+    func _error(type: NetworkErrorType, _ message: String) -> NetworkError {
         return type.make(message)
     }
 }
