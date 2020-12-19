@@ -7,8 +7,8 @@
 
 import Foundation
 
-class OpenWeather: WeatherProvider {
-    ///
+class OpenWeather {
+    /// API Query 를 만들기 위한 Builder 패턴
     let queryBuilder: QueryBuilder
     
     /// Protocol `Networking` 구현체
