@@ -22,8 +22,8 @@ struct OpenWeatherMapOneCall: WeatherProvider {
         let include = Set(options.compactMap({$0.rawValue}))
         let exclude = self.options.subtracting(include)
         return queryBuilder
-            .latitude(location.latitude)
-            .longitude(location.longitude)
+            .latitude(location.coordination.latitude)
+            .longitude(location.coordination.longitude)
             .exclude(exclude.joined(separator: ","))
             .appid(apiKey!)
             .build()

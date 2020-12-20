@@ -27,6 +27,7 @@
 		4F7EA90A258B3B400031B65F /* UnitDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EA909258B3B400031B65F /* UnitDefaults.swift */; };
 		4F9783312589DE1E001FD58E /* QueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9783302589DE1E001FD58E /* QueryBuilder.swift */; };
 		4FB31382258A16DF00BD6B5E /* StorageUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB31381258A16DF00BD6B5E /* StorageUserDefaults.swift */; };
+		4FBC3B6C258F12B00035C9F1 /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBC3B6B258F12B00035C9F1 /* UserLocationManager.swift */; };
 		4FCA9E0125779B6E009C3986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA9E0025779B6E009C3986 /* AppDelegate.swift */; };
 		4FCA9E0325779B6E009C3986 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA9E0225779B6E009C3986 /* SceneDelegate.swift */; };
 		4FCA9E0525779B6E009C3986 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA9E0425779B6E009C3986 /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		4FFB51AE258CA2F600647E79 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51AD258CA2F600647E79 /* StorageTests.swift */; };
 		4FFB51BD258DD28000647E79 /* URLSession+NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51BC258DD28000647E79 /* URLSession+NetworkSession.swift */; };
 		4FFB51DA258E06BD00647E79 /* OpenWeatherMapOneCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51D9258E06BD00647E79 /* OpenWeatherMapOneCall.swift */; };
+		4FFB51F3258F0F2300647E79 /* UserLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB51F2258F0F2300647E79 /* UserLocationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +127,7 @@
 		4F7EA909258B3B400031B65F /* UnitDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDefaults.swift; sourceTree = "<group>"; };
 		4F9783302589DE1E001FD58E /* QueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryBuilder.swift; sourceTree = "<group>"; };
 		4FB31381258A16DF00BD6B5E /* StorageUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUserDefaults.swift; sourceTree = "<group>"; };
+		4FBC3B6B258F12B00035C9F1 /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		4FCA9DFD25779B6E009C3986 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FCA9E0025779B6E009C3986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FCA9E0225779B6E009C3986 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		4FFB51AD258CA2F600647E79 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		4FFB51BC258DD28000647E79 /* URLSession+NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkSession.swift"; sourceTree = "<group>"; };
 		4FFB51D9258E06BD00647E79 /* OpenWeatherMapOneCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapOneCall.swift; sourceTree = "<group>"; };
+		4FFB51F2258F0F2300647E79 /* UserLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +293,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4FBC3B6A258F12920035C9F1 /* UserLocation */ = {
+			isa = PBXGroup;
+			children = (
+				4FBC3B6B258F12B00035C9F1 /* UserLocationManager.swift */,
+			);
+			path = UserLocation;
+			sourceTree = "<group>";
+		};
 		4FCA9DF425779B6E009C3986 = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +363,7 @@
 		4FCA9E862577A4CB009C3986 /* WeatherKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				4FFB51F1258F0F0A00647E79 /* UserLocationTests */,
 				4F1499E0258B49E00053D203 /* StorageTests */,
 				4FCA9E892577A4CB009C3986 /* Info.plist */,
 			);
@@ -385,6 +398,7 @@
 				4F9783212589D406001FD58E /* Model */,
 				4F5F17DC257F5B0100DFF1F6 /* Network */,
 				4F5F17DB257F5AF800DFF1F6 /* Storage */,
+				4FBC3B6A258F12920035C9F1 /* UserLocation */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -494,6 +508,14 @@
 				4FFB51D9258E06BD00647E79 /* OpenWeatherMapOneCall.swift */,
 			);
 			path = Implementation;
+			sourceTree = "<group>";
+		};
+		4FFB51F1258F0F0A00647E79 /* UserLocationTests */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB51F2258F0F2300647E79 /* UserLocationTests.swift */,
+			);
+			path = UserLocationTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -738,6 +760,7 @@
 				4F1CEFFF258B65EF00686C73 /* APIKey.swift in Sources */,
 				4FB31382258A16DF00BD6B5E /* StorageUserDefaults.swift in Sources */,
 				4F5F17EA257F79FF00DFF1F6 /* NetworkManager.swift in Sources */,
+				4FBC3B6C258F12B00035C9F1 /* UserLocationManager.swift in Sources */,
 				4F1499D7258B43F80053D203 /* TemperatureUnit.swift in Sources */,
 				4F5F17D02578E3F400DFF1F6 /* View.swift in Sources */,
 				4FFB51A0258C8A3700647E79 /* UserDefaultsBase.swift in Sources */,
@@ -766,6 +789,7 @@
 				4F1499E2258B4A080053D203 /* UserDefaultsTests.swift in Sources */,
 				4FFB51AE258CA2F600647E79 /* StorageTests.swift in Sources */,
 				4F1499F0258B550A0053D203 /* UnitDefaultsTests.swift in Sources */,
+				4FFB51F3258F0F2300647E79 /* UserLocationTests.swift in Sources */,
 				4F1499F7258B55820053D203 /* LocationsDefaultsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
