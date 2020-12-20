@@ -16,7 +16,7 @@ protocol WeatherProvider {
     
     /// 적당한 인자를 전달해 완성된 URL을 돌려 받는다.
     /// - Parameters:
-    ///   - coord: `Location` 타입의 좌표 정보
+    ///   - coord: `Coordination` 타입의 좌표 정보
     ///   - options: 요청하고자 하는 예보 옵션을 배열 타입으로 전달
-    func makeURL(with location: Location, options: [ForecastOption]) -> URL?
+    func makeURL(with coordination: Coordination, options: [ForecastOption]) -> URL?
 }

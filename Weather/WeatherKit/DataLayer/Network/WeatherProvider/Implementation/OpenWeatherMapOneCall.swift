@@ -12,18 +12,18 @@ struct OpenWeatherMapOneCall: WeatherProvider {
     var apiKey: String? = APIKey.openWeatherMap
     var queryBuilder = Query.OneCall()
     
-    func makeURL(with location: Location, options: [ForecastOption]) -> URL? {
-        return URL(string: endPoint + makeQuery(with: location, options: options))
+    func makeURL(with coordination: Coordination, options: [ForecastOption]) -> URL? {
+        return URL(string: endPoint + makeQuery(with: coordination, options: options))
     }
     /// 날씨 정보를 요청할 수 있는 가능한 모든 옵션
     private let options: Set<String> = ["current", "minutely", "houly", "daily"]
     
-    private func makeQuery(with location: Location, options: [ForecastOption]) -> String {
+    private func makeQuery(with coordination: Coordination, options: [ForecastOption]) -> String {
         let include = Set(options.compactMap({$0.rawValue}))
         let exclude = self.options.subtracting(include)
         return queryBuilder
-            .latitude(location.coordination.latitude)
-            .longitude(location.coordination.longitude)
+            .latitude(coordination.latitude)
+            .longitude(coordination.longitude)
             .exclude(exclude.joined(separator: ","))
             .appid(apiKey!)
             .build()
