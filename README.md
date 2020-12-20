@@ -9,6 +9,7 @@
 2. [WeatherKit](#WeatherKit)
     1. [WeatherKit Persistent Part](#WeatherKit-Persistent-Part)
     2. [WeatherKit Network Part](#WeatherKit-Network-Part)
+    3. [WeatherKit Model Part](#WeatherKit-Model-Set)
 ---
 # WeatherKit
 ---
@@ -16,7 +17,7 @@
 
 ---
 
-![Weather-Persistent-Part](https://user-images.githubusercontent.com/34618339/102592443-d3b85d00-4156-11eb-86cc-bc06dfe6dd01.png)
+![Weather-Persistent-Part](https://user-images.githubusercontent.com/34618339/102711565-0486c680-42fe-11eb-881d-e029e0d5741d.png)
 
 
 WeatherKit의 Persistent Part 다이어그램
@@ -262,3 +263,106 @@ struct OpenWeatherMapOneCall: WeatherProvider {
     ...
 }
 ```
+# WeatherKit-Model-Set
+
+WeatherKit은 `UserLocation`, `Network`, `Persistent`의 총 세가지 파트로 나누어진다. ViewModel 레이어에서는 이 각각의 파트들에게 (필요시 인자와 함께) 요청을 하고, 데이터를 돌려 받는다. 
+
+UserLocation은 사용자 위치를, Persistent에서는—몇가지 책임이 있지만 여기에서는 사용자 지정 위치를 저장하고 불러오는 것으로 특정한다—사용자 지정 위치를 다루며 Network에서는 이들 위치들을 이용해 날씨 정보를 가져오는 책임을 담당한다.
+
+가져오는 데이터의 종류가 제각기이기 때문에, 어떻게 필요한 모델을 정리할 수 있을지 고민하다가 우선 아래 다이어그램을 만들었다.
+
+---
+
+![Model Sets](https://user-images.githubusercontent.com/34618339/102711537-c2f61b80-42fd-11eb-8807-0951906f4a53.png)
+
+WeatherKit Model Sets Diagram
+
+~~‼️ User Location Model Set 에서 불필요한 하위 모델을 제거했는데, Custom Location Model Set과 타입이 달라져 한 배열에 속할 수 없다. WeatheriOS 모듈에서 이를 어떻게 처리할지 강제해야 한다.~~ 
+
+- ~~한 배열에 두 세트를 모두 넣고, 유저 인터페이스 구성시 이를 다르게 처리~~
+- ~~별개의 데이터 세트 그대로 두고 처리~~
+
+편의상 각각의 모델 세트로 나눈 것이며, 이들은 동일한 구조를 가진다.
+
+- **Coordination**
+
+    가장 저수준의 모델에는 `Coordination`이 있다. `Name`은 단순 문자열이므로 논외로 한다. 
+
+    ```swift
+    struct Coordination {
+        var latitude: String
+        var longitude: String
+    }
+    ```
+
+- **Location**
+
+    `Coordination`과 `Name`을 갖는 모델이다. 
+
+    ```swift
+    struct Location {
+        var name: String
+        var coordination: Coordination
+    }
+    ```
+
+- **Identifiable Location**
+
+    `Location` 모델에 Time Stamp를 더한 모델이다. 여기서 Time Stamp는 사용자가 해당 위치를 저장하는 동작을 했을 때 만들어진다. Time Stamp는 각각의 사용자 지정 위치에 대한 식별자로써도 활용된다.
+
+    ```swift
+    struct IdentifiableLocation {
+        var timestamp: String // Also it can be used as an identifier
+        var location: Location
+    }
+    ```
+
+- **Location Information**
+
+    `IdentifiableLocation`과 메타데이터를 추가한 것이다. 
+
+    ```swift
+    struct LocationInformation {
+        var metadata: Metadata // has `type` of enum, which is either `user` or `custom`
+        var location: IdentifiableLocation
+    }
+    ```
+
+- **Weather Information**
+
+    `LocationInformation`과 `Weather`를 갖는 모델
+
+    ```swift
+    struct WeatherInformation {
+        var weather: Weather
+        var location: LocationInformation
+    }
+    ```
+
+---
+
+![WeatherKit-Data-Flow](https://user-images.githubusercontent.com/34618339/102711540-c7bacf80-42fd-11eb-923d-416a8074fee6.png)
+
+WeatherKit Data Flow Diagram
+
+위 다이어그램은 `WeatherKit`에서의 데이터 흐름을 보여준다.
+
+- **UserLocation 파트의 데이터 흐름**
+    - 입력: 특정 ViewModel에서 사용자 위치 요청이 들어온다.
+    - 출력: `Coordination` 타입의 결과를 돌려준다.
+    - 기타(출력 이후)
+        1. 사용자 위치를 의미하는 이름을 지정해 `Location`을 만든다.
+        2. 임의로 `timestamp`를 지정해 `IdentifiableLocation`을 만든다.
+        3. 적절히 Metadata를 만들어 `LocationInformation`을 만든다.
+- **Persistent 파트의 데이터 흐름**
+    - 입력: 특정 ViewModel에서 Load 요청이 들어온다.
+    - 출력: `IdentifiableLocation` 타입의 결과를 돌려준다.
+    - 기타(출력 이후)
+        1. 적절히 Metadata를 만들어 `LocationInformation`을 만든다. 
+- **Network 파트의 데이터 흐름**
+    - 입력: 특정 ViewModel에서 좌표 값과 함께 요청이 들어온다.
+    - 출력: `Weather` 타입의 결과를 돌려준다.
+    - 기타(출력 이후)
+        1. 가지고 있는 `LocationInformation`에 `Weather`를 추가해 `WeatherInformation`을 완성한다.
+
+❌ **모델을 초기에 신중하고 완전하게 정의해야 추후 불필요한 변경이 생기지 않는다.**
