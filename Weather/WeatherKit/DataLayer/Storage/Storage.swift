@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias TimeStamp = String
-
 protocol Storage {
     func save(_ data: Storable.Save)
     func load(_ type: Storable.Load) -> Any?
@@ -19,6 +17,6 @@ enum Storable {
     enum Load { case unit, locations }
     enum Save {
         case unit(TemperatureUnit)
-        case location(UserSavedLocation)
+        case location(Location)
     }
 }

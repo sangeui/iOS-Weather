@@ -7,6 +7,6 @@
 
 import Foundation
 
-public enum LocationMetaData {
+public enum LocationMetaData: String, Codable {
     case user, custom
 }

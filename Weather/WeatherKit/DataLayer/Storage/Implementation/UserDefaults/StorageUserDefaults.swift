@@ -25,8 +25,10 @@ class StorageUserDefaults: Storage {
         switch data {
         case .unit(let unit): unitDefaults.value = unit
         case .location(let location):
-            var existingLocations = locationsDefaults.value ?? [:]
-            existingLocations.updateValue(location.location, forKey: location.timestamp)
+            let timestamp = String(NSDate().timeIntervalSince1970)
+            let identifableLocation = IdentifiableLocation(location: location, timestamp: timestamp)
+            var existingLocations = locationsDefaults.value ?? []
+            existingLocations.append(identifableLocation)
             locationsDefaults.value = existingLocations
         }
     }
@@ -39,9 +41,9 @@ class StorageUserDefaults: Storage {
     func delete(_ data: Storable.Delete) -> Bool {
         switch data {
         case .location(let identifier):
-            if var locations = locationsDefaults.value {
-                locations.removeValue(forKey: identifier)
-                locationsDefaults.value = locations
+            if let locations = locationsDefaults.value {
+                let filtered = locations.filter { $0.timestamp != identifier }
+                locationsDefaults.value = filtered
                 return true
             }
         }

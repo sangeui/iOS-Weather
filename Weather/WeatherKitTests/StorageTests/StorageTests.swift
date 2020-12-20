@@ -46,16 +46,13 @@ class StorageTests: XCTestCase {
     }
     func testSaveLocation() {
         // Given
-        let timestamp = String(NSDate().timeIntervalSince1970)
-        let location = Location(name: "울산광역시",
-                                latitude: "35.54638797233825",
-                                longitude: "129.2550245164079")
-        let userSavedLocation = UserSavedLocation(timestamp: timestamp,
-                                                  location: location)
+        let coordination = Coordination(latitude: "35.54638797233825", longitude: "129.2550245164079")
+        let place = "울산광역시"
+        let location = Location(coordination: coordination, name: place)
         // When
-        storage.save(.location(userSavedLocation))
+        storage.save(.location(location))
         // Then
-        let savedLocations = storage.load(.locations) as? UserSavedLocations
+        let savedLocations = storage.load(.locations) as? [IdentifiableLocation]
         XCTAssertNotNil(savedLocations)
         XCTAssertEqual(savedLocations!.count, 1)
     }
