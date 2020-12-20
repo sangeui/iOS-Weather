@@ -196,15 +196,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4F0A7E1D258A07D700C73CD1 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				4F0A7E09258A076900C73CD1 /* WeatherForecastOption.swift */,
-				4F5F17E8257F79EC00DFF1F6 /* Implementation */,
-			);
-			path = Weather;
-			sourceTree = "<group>";
-		};
 		4F0A7E1E258A07EE00C73CD1 /* QueryBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,22 +266,6 @@
 				4F0A7E1E258A07EE00C73CD1 /* QueryBuilder */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		4F5F17DD257F5B0E00DFF1F6 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				4F0A7E1D258A07D700C73CD1 /* Weather */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		4F5F17E8257F79EC00DFF1F6 /* Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				4F1CEFFE258B65EF00686C73 /* APIKey.swift */,
-			);
-			path = Implementation;
 			sourceTree = "<group>";
 		};
 		4F7EA908258B3AA30031B65F /* UserDefaults */ = {
@@ -408,7 +383,6 @@
 			isa = PBXGroup;
 			children = (
 				4F9783212589D406001FD58E /* Model */,
-				4F5F17DD257F5B0E00DFF1F6 /* Service */,
 				4F5F17DC257F5B0100DFF1F6 /* Network */,
 				4F5F17DB257F5AF800DFF1F6 /* Storage */,
 			);
@@ -507,6 +481,8 @@
 			isa = PBXGroup;
 			children = (
 				4F5F17DE257F790300DFF1F6 /* WeatherProvider.swift */,
+				4F0A7E09258A076900C73CD1 /* WeatherForecastOption.swift */,
+				4F1CEFFE258B65EF00686C73 /* APIKey.swift */,
 				4FFB51D8258E06A300647E79 /* Implementation */,
 			);
 			path = WeatherProvider;
