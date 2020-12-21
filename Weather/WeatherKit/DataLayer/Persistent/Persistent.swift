@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Storage {
+protocol Persistent {
     func save(_ data: Storable.Save)
     func load(_ type: Storable.Load) -> Any?
     func delete(_ data: Storable.Delete) -> Bool
@@ -17,6 +17,6 @@ enum Storable {
     enum Load { case unit, locations }
     enum Save {
         case unit(TemperatureUnit)
-        case location(Location)
+        case location(Place)
     }
 }

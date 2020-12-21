@@ -13,7 +13,7 @@ class StorageTests: XCTestCase {
     var defaults: UserDefaults!
     var unitDefaults: UnitDefaults!
     var locationsDefaults: LocationsDefaults!
-    var storage: Storage!
+    var storage: Persistent!
     
     struct Mock {
         
@@ -23,7 +23,7 @@ class StorageTests: XCTestCase {
         defaults = UserDefaults(suiteName: suiteForUserDefaults)
         unitDefaults = UnitDefaults(key: Key.temperatureUnit, defaults: defaults)
         locationsDefaults = LocationsDefaults(key: Key.locations, defaults: defaults)
-        storage = StorageUserDefaults(unitDefaults, locationsDefaults)
+        storage = PersistentUserDefaults(unitDefaults, locationsDefaults)
     }
     override func tearDown() {
         UserDefaults.standard.removePersistentDomain(forName: suiteForUserDefaults)
@@ -46,13 +46,13 @@ class StorageTests: XCTestCase {
     }
     func testSaveLocation() {
         // Given
-        let coordination = Coordination(latitude: "35.54638797233825", longitude: "129.2550245164079")
+        let coordination = Coordination(latitude: 35.54638797233825, longitude: 129.2550245164079)
         let place = "울산광역시"
-        let location = Location(coordination: coordination, name: place)
+        let location = Place(coordination: coordination, name: place)
         // When
         storage.save(.location(location))
         // Then
-        let savedLocations = storage.load(.locations) as? [IdentifiableLocation]
+        let savedLocations = storage.load(.locations) as? [IdentifiablePlace]
         XCTAssertNotNil(savedLocations)
         XCTAssertEqual(savedLocations!.count, 1)
     }

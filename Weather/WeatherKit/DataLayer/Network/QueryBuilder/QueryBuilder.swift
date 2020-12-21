@@ -23,11 +23,11 @@ enum Query {
         var root: String = "onecall"
         var query: String = ""
         
-        func latitude(_ latitude: String) -> Self {
+        func latitude(_ latitude: Double) -> Self {
             appendParameter("lat=\(latitude)")
             return self
         }
-        func longitude(_ longitude: String) -> Self {
+        func longitude(_ longitude: Double) -> Self {
             appendParameter("lon=\(longitude)")
             return self
         }

@@ -10,7 +10,7 @@ import Foundation
 typealias UserSavedLocations = [String: Location]
 typealias UserSavedLocation = (timestamp: String, location: Location)
 
-class StorageUserDefaults: Storage {
+class PersistentUserDefaults: Persistent {
     
     var unitDefaults: UnitDefaults
     var locationsDefaults: LocationsDefaults

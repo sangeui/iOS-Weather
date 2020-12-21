@@ -28,9 +28,9 @@ class LocationsDefaultsTests: XCTestCase {
     func testSaveOneLocation() {
         let timestamp = makeTimeStamp()
         let placeName = "Ulsan"
-        let coordination = Coordination(latitude: "35.5", longitude: "129.3")
-        let location = Location(coordination: coordination, name: placeName)
-        let identifiableLocation = IdentifiableLocation(location: location, timestamp: timestamp)
+        let coordination = Coordination(latitude: 35.5, longitude: 129.3)
+        let location = Place(coordination: coordination, name: placeName)
+        let identifiableLocation = IdentifiablePlace(location: location, timestamp: timestamp)
         
         locationsDefaults.value = [identifiableLocation]
         

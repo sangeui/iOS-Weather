@@ -14,10 +14,10 @@ struct LocationsDefaults: UserDefaultsBase {
     var key: Key
     var defaults: UserDefaults
     
-    var value: [IdentifiableLocation]? {
+    var value: [IdentifiablePlace]? {
         get {
             guard let data = getDataFromDefaults(with: key) else { return nil }
-            guard let value: [IdentifiableLocation] = getValueFromData(data) else { return nil }
+            guard let value: [IdentifiablePlace] = getValueFromData(data) else { return nil }
             return value
         }
         set {

@@ -6,28 +6,28 @@
 //
 
 import Foundation
-typealias Latitude = String
-typealias Longitude = String
-typealias Place = String
+typealias Latitude = Double
+typealias Longitude = Double
+typealias PlaceName = String
 typealias TimeStamp = String
 
 public struct Coordination: Codable {
     var latitude: Latitude
     var longitude: Longitude
 }
-public struct Location: Codable {
+public struct Place: Codable {
     var coordination: Coordination
-    var name: Place
+    var name: PlaceName
 }
-public struct IdentifiableLocation: Codable {
-    var location: Location
+public struct IdentifiablePlace: Codable {
+    var location: Place
     var timestamp: TimeStamp
 }
-public struct LocationInformation: Codable {
-    var location: IdentifiableLocation
+public struct PlaceInformation: Codable {
+    var location: IdentifiablePlace
     var metadata: LocationMetaData
 }
 public struct WeatherInformation: Codable {
     var weather: WeatherModel.Data
-    var location: LocationInformation
+    var location: PlaceInformation
 }
