@@ -19,6 +19,7 @@ class NetworkManager {
     func weather(coordination: Coordination, options: [Weather.Option.Forecast], completion: @escaping Weather.Completion) {
         guard let url = url(coordination, options) else { return }
         execute(url, completion: completion)
+        
     }
 }
 private extension NetworkManager {
