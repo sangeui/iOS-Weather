@@ -9,4 +9,4 @@ import Foundation
 
 enum LocationRequestType {
     case once, tracking
-}
+}   
