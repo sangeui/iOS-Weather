@@ -89,5 +89,7 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+.DS_Store
+
 # API Key
 WeatherKit/CoreServiceLayer/NetworkPart/Protocol/WeatherProtocol/Key+API.swift
