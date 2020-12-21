@@ -7,8 +7,8 @@
 
 import Foundation
 
-typealias UserSavedLocations = [String: Location]
-typealias UserSavedLocation = (timestamp: String, location: Location)
+typealias UserSavedLocations = [String: Place]
+typealias UserSavedLocation = (timestamp: String, location: Place)
 
 class PersistentUserDefaults: Persistent {
     
@@ -26,7 +26,7 @@ class PersistentUserDefaults: Persistent {
         case .unit(let unit): unitDefaults.value = unit
         case .location(let location):
             let timestamp = String(NSDate().timeIntervalSince1970)
-            let identifableLocation = IdentifiableLocation(location: location, timestamp: timestamp)
+            let identifableLocation = IdentifiablePlace(location: location, timestamp: timestamp)
             var existingLocations = locationsDefaults.value ?? []
             existingLocations.append(identifableLocation)
             locationsDefaults.value = existingLocations
