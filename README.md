@@ -4,6 +4,22 @@
 <img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat" alt="Swift 5.0" />
 
 ---
+
+# Objectives
+- WeatheriOS
+- WeatherKit
+    - UserInterface Layer · ViewModel Part
+    - Network Part
+        - [X] 구현
+        - [ ] 테스트
+    - Persistent Part
+        - [X] 구현
+        - [ ] 테스트
+    - Location Part
+        - [ ] 구현
+        - [ ] 테스트
+
+---
 # Table of Contents
 1. [WeatheriOS](#)
 2. [WeatherKit](#WeatherKit)
