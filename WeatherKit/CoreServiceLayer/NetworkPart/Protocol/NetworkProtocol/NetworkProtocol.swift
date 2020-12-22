@@ -13,7 +13,6 @@ protocol NetworkProtocol {
 extension NetworkProtocol {
     var jsonEncoder: JSONEncoder { return JSONEncoder() }
     var jsonDecoder: JSONDecoder { return JSONDecoder() }
-    
     var jsonCamelDecoder: JSONDecoder { return JSONDecoder(with: .convertFromSnakeCase) }
 }
 extension JSONDecoder {

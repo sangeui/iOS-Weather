@@ -8,7 +8,17 @@
 import Foundation
 
 enum Weather {
-    struct Information: Codable {}
+    struct Information: Codable {
+        var lat: Double
+        var lon: Double
+        var timezone: String
+        var timezoneOffset: Double
+        
+        var current: Current?
+        var minutely: [Minutely]?
+        var hourly: [Hourly]?
+        var daily: [Daily]?
+    }
     
     struct Current: Codable {}
     struct Minutely: Codable {}

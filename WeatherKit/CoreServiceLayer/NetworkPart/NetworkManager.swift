@@ -17,7 +17,8 @@ class NetworkManager {
     }
     
     func weather(coordination: Coordination, options: [Weather.Option.Forecast], completion: @escaping Weather.Completion) {
-        guard let url = url(coordination, options) else { return }
+        guard let url = url(coordination, options) else { print("URL ERROR"); return }
+        print(url.absoluteString)
         execute(url, completion: completion)
         
     }
