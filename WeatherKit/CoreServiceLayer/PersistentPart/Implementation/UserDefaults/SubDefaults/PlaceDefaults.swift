@@ -30,6 +30,6 @@ private extension PlaceDefaults {
     }
     func setPlace(_ place: [UniquePlace]?) {
         guard let data = encodeValue(place) else { return }
-        saveData(with: key, data: data)
+        saveValue(data, with: key)
     }
 }

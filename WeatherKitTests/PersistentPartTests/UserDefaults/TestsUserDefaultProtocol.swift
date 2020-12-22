@@ -45,7 +45,10 @@ class TestsUserDefaultProtocol: XCTestCase {
         XCTAssertNotNil(loaded)
         XCTAssertEqual(loaded!, "A")
     }
-    // 이미 저장된 Data 형태의 값이 존재할 때,
+    // 문자열을 저장하고 불러오는 테스트
+    func testSaveStringAndLoadString() {
+    }
+    // 저장된 Data 형태의 값이 존재할 때,
     // 주어진 키와 관련된 데이터를 불러오는 테스트
     func testLoadDataWithKeyWhenGivenStoredData() {
         let text = "It's not my fault."

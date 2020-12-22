@@ -35,9 +35,6 @@ extension UserDefaultsProtocol {
     func encodeValue<T: Encodable>(_ value: T) -> Data? {
         return try? propertyEncoder.encode(value)
     }
-    func saveData(with key: Key, data: Data) {
-        defaults.setValue(data, forKey: key.rawValue)
-    }
     func saveValue(_ value: Any?, with key: Key) {
         defaults.setValue(value, forKey: key.rawValue)
     }
