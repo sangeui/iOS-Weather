@@ -23,8 +23,14 @@ extension UserDefaultsProtocol {
     func loadValue<T: Decodable>(_ data: Data) -> T? {
         return try? propertyDecoder.decode(T.self, from: data)
     }
+    func loadValue(with key: Key) -> Any? {
+        return defaults.value(forKey: key.rawValue)
+    }
     func loadString(with key: Key) -> String? {
         return defaults.string(forKey: key.rawValue)
+    }
+    func loadString(from data: Data, using encoding: String.Encoding) -> String? {
+        return String(data: data, encoding: encoding)
     }
     func encodeValue<T: Encodable>(_ value: T) -> Data? {
         return try? propertyEncoder.encode(value)
@@ -36,4 +42,7 @@ extension UserDefaultsProtocol {
         defaults.setValue(value, forKey: key.rawValue)
     }
 }
-
+struct UserDefaultsProtocolMock: UserDefaultsProtocol {
+    var key: Key
+    var defaults: UserDefaults
+}

@@ -6,11 +6,7 @@
 //
 
 import XCTest
-
-/*
- 
- */
+@testable import WeatherKit
 
 class NetworkTests: XCTestCase {
-    
 }

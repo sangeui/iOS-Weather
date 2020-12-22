@@ -10,6 +10,8 @@
 		4F53886A2591CEFA00EFD908 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388692591CEFA00EFD908 /* NetworkTests.swift */; };
 		4F5388742591CF0900EFD908 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388732591CF0900EFD908 /* WeatherTests.swift */; };
 		4F53887A2591CF2900EFD908 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388792591CF2900EFD908 /* NetworkManagerTests.swift */; };
+		4F5388892591E00500EFD908 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388882591E00500EFD908 /* URLSessionMock.swift */; };
+		4F53888F2591E01900EFD908 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F53888E2591E01900EFD908 /* URLSessionDataTaskMock.swift */; };
 		4F9A70702590C06600ED29FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A706F2590C06600ED29FA /* AppDelegate.swift */; };
 		4F9A70722590C06600ED29FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A70712590C06600ED29FA /* SceneDelegate.swift */; };
 		4F9A70742590C06600ED29FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A70732590C06600ED29FA /* ViewController.swift */; };
@@ -45,6 +47,8 @@
 		4F9A71A12590CE7600ED29FA /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A71A02590CE7600ED29FA /* Key.swift */; };
 		4F9A71B12590CF0900ED29FA /* Key+ExpressibleByStringLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A71B02590CF0900ED29FA /* Key+ExpressibleByStringLiteral.swift */; };
 		4F9A71C02590CFBE00ED29FA /* Key+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A71BF2590CFBE00ED29FA /* Key+UserDefaults.swift */; };
+		4FA386582591E4AC0056D5A2 /* NetworkMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA386572591E4AC0056D5A2 /* NetworkMock.swift */; };
+		4FA386602591EDCC0056D5A2 /* TestsUserDefaultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA3865F2591EDCC0056D5A2 /* TestsUserDefaultProtocol.swift */; };
 		4FC9143E2590E77D00221CD3 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC9143D2590E77D00221CD3 /* NetworkProtocol.swift */; };
 		4FC914482590E7CA00221CD3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC914472590E7CA00221CD3 /* Network.swift */; };
 		4FC9144E2590E7F400221CD3 /* Network+Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC9144D2590E7F400221CD3 /* Network+Completion.swift */; };
@@ -111,6 +115,8 @@
 		4F5388692591CEFA00EFD908 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		4F5388732591CF0900EFD908 /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
 		4F5388792591CF2900EFD908 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		4F5388882591E00500EFD908 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
+		4F53888E2591E01900EFD908 /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
 		4F9A706C2590C06600ED29FA /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9A706F2590C06600ED29FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F9A70712590C06600ED29FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 		4F9A71A02590CE7600ED29FA /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		4F9A71B02590CF0900ED29FA /* Key+ExpressibleByStringLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Key+ExpressibleByStringLiteral.swift"; sourceTree = "<group>"; };
 		4F9A71BF2590CFBE00ED29FA /* Key+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Key+UserDefaults.swift"; sourceTree = "<group>"; };
+		4FA386572591E4AC0056D5A2 /* NetworkMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMock.swift; sourceTree = "<group>"; };
+		4FA3865F2591EDCC0056D5A2 /* TestsUserDefaultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUserDefaultProtocol.swift; sourceTree = "<group>"; };
 		4FC9143D2590E77D00221CD3 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		4FC914472590E7CA00221CD3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4FC9144D2590E7F400221CD3 /* Network+Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Completion.swift"; sourceTree = "<group>"; };
@@ -217,6 +225,8 @@
 		4F5388672591CD6200EFD908 /* PersistentPartTests */ = {
 			isa = PBXGroup;
 			children = (
+				4FA3865E2591ED640056D5A2 /* UserDefaults */,
+				4FA3865D2591ED560056D5A2 /* Persistent */,
 			);
 			path = PersistentPartTests;
 			sourceTree = "<group>";
@@ -226,6 +236,16 @@
 			children = (
 			);
 			path = LocationPartTests;
+			sourceTree = "<group>";
+		};
+		4F5388872591DFF000EFD908 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				4F5388882591E00500EFD908 /* URLSessionMock.swift */,
+				4F53888E2591E01900EFD908 /* URLSessionDataTaskMock.swift */,
+				4FA386572591E4AC0056D5A2 /* NetworkMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		4F9A70632590C06600ED29FA = {
@@ -341,6 +361,7 @@
 				4FC914632590EA4600221CD3 /* NetworkManager.swift */,
 				4FC9143C2590E76900221CD3 /* Protocol */,
 				4FC914772590EDC000221CD3 /* Implementation */,
+				4F5388872591DFF000EFD908 /* Mock */,
 			);
 			path = NetworkPart;
 			sourceTree = "<group>";
@@ -496,6 +517,21 @@
 				4F9A71AE2590CEA300ED29FA /* Key */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		4FA3865D2591ED560056D5A2 /* Persistent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistent;
+			sourceTree = "<group>";
+		};
+		4FA3865E2591ED640056D5A2 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				4FA3865F2591EDCC0056D5A2 /* TestsUserDefaultProtocol.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		4FC9143C2590E76900221CD3 /* Protocol */ = {
@@ -786,8 +822,10 @@
 				4FC9143E2590E77D00221CD3 /* NetworkProtocol.swift in Sources */,
 				4F9A70EA2590C46500ED29FA /* PlaceInformation.swift in Sources */,
 				4F9A70F02590C4A200ED29FA /* PlaceMetaData.swift in Sources */,
+				4F5388892591E00500EFD908 /* URLSessionMock.swift in Sources */,
 				4F9A71932590CD9200ED29FA /* PlaceDefaults.swift in Sources */,
 				4F9A719B2590CE0000ED29FA /* UserDefaultsProtocol.swift in Sources */,
+				4F53888F2591E01900EFD908 /* URLSessionDataTaskMock.swift in Sources */,
 				4FC9144E2590E7F400221CD3 /* Network+Completion.swift in Sources */,
 				4F9A71662590CBA700ED29FA /* Operator+Save.swift in Sources */,
 				4F9A71052590C6EF00ED29FA /* LocationProtocol.swift in Sources */,
@@ -812,6 +850,7 @@
 				4F9A70E42590C37000ED29FA /* UniquePlace.swift in Sources */,
 				4F9A71C02590CFBE00ED29FA /* Key+UserDefaults.swift in Sources */,
 				4F9A712D2590C99100ED29FA /* Persistent+Operator.swift in Sources */,
+				4FA386582591E4AC0056D5A2 /* NetworkMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +860,7 @@
 			files = (
 				4F53887A2591CF2900EFD908 /* NetworkManagerTests.swift in Sources */,
 				4F53886A2591CEFA00EFD908 /* NetworkTests.swift in Sources */,
+				4FA386602591EDCC0056D5A2 /* TestsUserDefaultProtocol.swift in Sources */,
 				4F5388742591CF0900EFD908 /* WeatherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
