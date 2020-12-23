@@ -14,7 +14,7 @@ class LocationProtocolMock: LocationProtocol {
     init(fakeLocation: CLLocation? = nil) {
         location = fakeLocation
     }
-    func getLocation(type: LocationRequestType, completion: @escaping LocationHandler) {
+    func getLocation(completion: @escaping LocationHandler) {
         guard let location = location else {
             completion(.failure(.locationNotFound))
             return

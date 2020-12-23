@@ -31,7 +31,7 @@ class TestsLocationProtocol: XCTestCase {
         
         prepareLocationManagerWithLocation()
         
-        locationManager?.getLocation(type: .onetime, completion: { result in
+        locationManager?.getLocation(completion: { result in
             switch result {
             case .success(let coordinate): print(coordinate)
             default: break
@@ -44,7 +44,7 @@ class TestsLocationProtocol: XCTestCase {
         let exp = expectation(description: "LocationProtocol")
         prepareLocationManager()
         
-        locationManager?.getLocation(type: .onetime, completion: { result in
+        locationManager?.getLocation(completion: { result in
             switch result {
             case .success(_): break
             case .failure(let error):

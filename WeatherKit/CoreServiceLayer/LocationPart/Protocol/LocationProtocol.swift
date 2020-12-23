@@ -10,5 +10,5 @@ import Foundation
 typealias LocationHandler = ((Result<Coordinate, LocationError>) -> Void)
 
 protocol LocationProtocol {
-    func getLocation(type: LocationRequestType, completion: @escaping LocationHandler)
+    func getLocation(completion: @escaping LocationHandler)
 }
