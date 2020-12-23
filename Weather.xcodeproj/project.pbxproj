@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F0A8CCB2593A40C00B5FDB7 /* TestsLocationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A8CCA2593A40C00B5FDB7 /* TestsLocationProtocol.swift */; };
 		4F0A8CD12593A79A00B5FDB7 /* UniquePlace+RandomCoord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A8CD02593A79A00B5FDB7 /* UniquePlace+RandomCoord.swift */; };
+		4F0A8CD82593B1C400B5FDB7 /* CLLocationManager+LocationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A8CD72593B1C400B5FDB7 /* CLLocationManager+LocationProtocol.swift */; };
 		4F53886A2591CEFA00EFD908 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388692591CEFA00EFD908 /* NetworkTests.swift */; };
 		4F5388742591CF0900EFD908 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388732591CF0900EFD908 /* WeatherTests.swift */; };
 		4F53887A2591CF2900EFD908 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5388792591CF2900EFD908 /* NetworkManagerTests.swift */; };
@@ -120,6 +121,7 @@
 /* Begin PBXFileReference section */
 		4F0A8CCA2593A40C00B5FDB7 /* TestsLocationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsLocationProtocol.swift; sourceTree = "<group>"; };
 		4F0A8CD02593A79A00B5FDB7 /* UniquePlace+RandomCoord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UniquePlace+RandomCoord.swift"; sourceTree = "<group>"; };
+		4F0A8CD72593B1C400B5FDB7 /* CLLocationManager+LocationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+LocationProtocol.swift"; sourceTree = "<group>"; };
 		4F5388692591CEFA00EFD908 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		4F5388732591CF0900EFD908 /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
 		4F5388792591CF2900EFD908 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
@@ -224,6 +226,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F0A8CD62593B19B00B5FDB7 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				4F0A8CD72593B1C400B5FDB7 /* CLLocationManager+LocationProtocol.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
 		4F5388662591CD5400EFD908 /* NetworkPartTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +414,7 @@
 			children = (
 				4F9A71202590C92000ED29FA /* LocationMock */,
 				4FC914852591063500221CD3 /* Protocol */,
+				4F0A8CD62593B19B00B5FDB7 /* Implementation */,
 				4FC914862591064300221CD3 /* Error */,
 				4FDA73DB2593A06E009A0C39 /* Mock */,
 			);
@@ -848,6 +859,7 @@
 				4FC9143E2590E77D00221CD3 /* NetworkProtocol.swift in Sources */,
 				4F9A70EA2590C46500ED29FA /* PlaceInformation.swift in Sources */,
 				4F9A70F02590C4A200ED29FA /* PlaceMetaData.swift in Sources */,
+				4F0A8CD82593B1C400B5FDB7 /* CLLocationManager+LocationProtocol.swift in Sources */,
 				4FDA73DD2593A082009A0C39 /* LocationProtocolMock.swift in Sources */,
 				4F5388892591E00500EFD908 /* URLSessionMock.swift in Sources */,
 				4F9A71932590CD9200ED29FA /* PlaceDefaults.swift in Sources */,
