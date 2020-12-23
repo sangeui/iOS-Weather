@@ -7,4 +7,6 @@
 
 import Foundation
 
-enum LocationError: Error {}
+enum LocationError: Error {
+    case locationNotFound
+}

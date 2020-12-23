@@ -8,5 +8,5 @@
 import Foundation
 
 enum LocationRequestType {
-    case once, tracking
+    case onetime, tracking
 }   
