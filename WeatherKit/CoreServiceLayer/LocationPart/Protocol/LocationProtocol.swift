@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias LocationHandler = ((Result<Coordination, LocationError>) -> Void)
+typealias LocationHandler = ((Result<Coordinate, LocationError>) -> Void)
 
 protocol LocationProtocol {
     func getLocation(type: LocationRequestType, completion: @escaping LocationHandler)

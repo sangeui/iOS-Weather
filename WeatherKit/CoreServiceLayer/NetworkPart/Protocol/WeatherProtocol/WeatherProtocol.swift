@@ -11,7 +11,7 @@ protocol WeatherProtocol {
     var apiKey: String? { get }
     var endPoint: String { get }
     
-    func makeURL(with coordination: Coordination, options: [Weather.Option.Forecast]) -> URL?
+    func makeURL(with coordination: Coordinate, options: [Weather.Option.Forecast]) -> URL?
 }
 extension Weather {
     enum Option {}

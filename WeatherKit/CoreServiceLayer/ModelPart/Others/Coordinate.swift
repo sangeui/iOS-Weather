@@ -10,9 +10,9 @@ import Foundation
 typealias Latitude = Double
 typealias Longitude = Double
 
-public struct Coordination: Codable {
+public struct Coordinate: Codable {
     var latitude: Latitude
     var longitude: Longitude
 }
 
-extension Coordination: Equatable {}
+extension Coordinate: Equatable {}

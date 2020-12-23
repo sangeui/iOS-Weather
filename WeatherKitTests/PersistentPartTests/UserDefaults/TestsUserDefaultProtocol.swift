@@ -82,7 +82,7 @@ class TestsUserDefaultProtocol: XCTestCase {
         let latitude = 35.563305114860995
         let longitude = 129.33352452504332
         let name = "울산광역시"
-        let coordination = Coordination(latitude: latitude, longitude: longitude)
+        let coordination = Coordinate(latitude: latitude, longitude: longitude)
         let place = Place(coordination: coordination, name: name)
         let timestamp = String(NSDate().timeIntervalSince1970)
         let uniquePlace = UniquePlace(place: place, timestamp: timestamp)

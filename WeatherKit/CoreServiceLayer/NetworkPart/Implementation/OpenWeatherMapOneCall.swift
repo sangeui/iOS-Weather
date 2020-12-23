@@ -11,10 +11,10 @@ struct OpenWeatherMapOneCall: WeatherProtocol {
     var apiKey: String? = Key.API
     var endPoint: String = Weather.EndPoint.OpenWeatherMap.onecall.base
     
-    func makeURL(with coordination: Coordination, options: [Weather.Option.Forecast]) -> URL? {
+    func makeURL(with coordination: Coordinate, options: [Weather.Option.Forecast]) -> URL? {
         return URL(string: endPoint + makeQuery(coordination, options))
     }
-    private func makeQuery(_ coordination: Coordination, _ options: [Weather.Option.Forecast]) -> String {
+    private func makeQuery(_ coordination: Coordinate, _ options: [Weather.Option.Forecast]) -> String {
         let all = Set(Weather.Option.Forecast.allCases.map { $0.rawValue })
         let include = Set(options.map({ $0.rawValue }))
         let exclude = all.subtracting(include).joined(separator: ",")

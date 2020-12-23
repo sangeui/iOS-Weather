@@ -10,7 +10,7 @@ import Foundation
 typealias Name = String
 
 public struct Place: Codable {
-    var coordination: Coordination
+    var coordination: Coordinate
     var name: Name
 }
 
