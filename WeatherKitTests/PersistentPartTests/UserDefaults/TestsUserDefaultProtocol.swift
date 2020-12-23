@@ -47,6 +47,13 @@ class TestsUserDefaultProtocol: XCTestCase {
     }
     // 문자열을 저장하고 불러오는 테스트
     func testSaveStringAndLoadString() {
+        let text = "Wowwww"
+        givenSavedAny(text)
+        
+        let loaded = mock.loadString(with: key)
+        XCTAssertNotNil(loaded)
+        
+        XCTAssertEqual(loaded!, text)
     }
     // 저장된 Data 형태의 값이 존재할 때,
     // 주어진 키와 관련된 데이터를 불러오는 테스트
@@ -75,6 +82,25 @@ class TestsUserDefaultProtocol: XCTestCase {
         XCTAssertNotNil(loadedString)
         
         XCTAssertEqual(loadedString, text)
+    }
+    func testSaveAndLoadModelWhenGivenModelData() {
+        let latitude = 35.563305114860995
+        let longitude = 129.33352452504332
+        let name = "울산광역시"
+        let coordination = Coordination(latitude: latitude, longitude: longitude)
+        let place = Place(coordination: coordination, name: name)
+        let timestamp = String(NSDate().timeIntervalSince1970)
+        let uniquePlace = UniquePlace(place: place, timestamp: timestamp)
+        
+        let data = mock.encodeValue(uniquePlace)
+        mock.saveValue(data, with: key)
+        
+        if let loadedData = mock.loadData(with: key),
+           let decoded: UniquePlace = mock.decodeData(loadedData) {
+            XCTAssertEqual(uniquePlace, decoded)
+        } else {
+            assertionFailure()
+        }
     }
 }
 extension Key {

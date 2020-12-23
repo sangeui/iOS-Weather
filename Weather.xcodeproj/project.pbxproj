@@ -401,8 +401,8 @@
 				4F9A70D72590C2C600ED29FA /* Coordination.swift */,
 				4F9A70DD2590C33500ED29FA /* Place.swift */,
 				4F9A70E32590C37000ED29FA /* UniquePlace.swift */,
-				4F9A70E92590C46500ED29FA /* PlaceInformation.swift */,
 				4F9A70EF2590C4A200ED29FA /* PlaceMetaData.swift */,
+				4F9A70E92590C46500ED29FA /* PlaceInformation.swift */,
 				4F9A70FD2590C63100ED29FA /* WeatherInformation.swift */,
 				4F9A71362590CA3A00ED29FA /* TemperatureUnit.swift */,
 			);

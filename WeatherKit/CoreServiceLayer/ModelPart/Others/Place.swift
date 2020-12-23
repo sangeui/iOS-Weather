@@ -13,3 +13,5 @@ public struct Place: Codable {
     var coordination: Coordination
     var name: Name
 }
+
+extension Place: Equatable {}

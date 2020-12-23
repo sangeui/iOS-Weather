@@ -14,3 +14,5 @@ public struct Coordination: Codable {
     var latitude: Latitude
     var longitude: Longitude
 }
+
+extension Coordination: Equatable {}

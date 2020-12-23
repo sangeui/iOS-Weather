@@ -13,3 +13,5 @@ public struct UniquePlace: Codable {
     var place: Place
     var timestamp: TimeStamp
 }
+
+extension UniquePlace: Equatable {}

@@ -11,3 +11,5 @@ public struct PlaceInformation: Codable {
     var uniquePlace: UniquePlace
     var metadata: PlaceMetaData
 }
+
+extension PlaceInformation: Equatable {}

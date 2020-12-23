@@ -25,7 +25,7 @@ struct PlaceDefaults: UserDefaultsProtocol {
 private extension PlaceDefaults {
     func getPlace() -> [UniquePlace]? {
         guard let data = loadData(with: key) else { return nil }
-        guard let value: [UniquePlace] = loadValue(data) else { return nil }
+        guard let value: [UniquePlace] = decodeData(data) else { return nil }
         return value
     }
     func setPlace(_ place: [UniquePlace]?) {

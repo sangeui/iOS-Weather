@@ -11,3 +11,4 @@ public struct WeatherInformation {
     var weather: Weather.Information
     var place: PlaceInformation
 }
+

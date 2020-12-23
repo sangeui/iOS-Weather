@@ -10,3 +10,5 @@ import Foundation
 public enum PlaceMetaData: String, Codable {
     case user, custom
 }
+
+extension PlaceMetaData: Equatable {}
