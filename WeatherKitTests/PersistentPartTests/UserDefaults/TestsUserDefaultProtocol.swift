@@ -9,9 +9,7 @@ import XCTest
 @testable import WeatherKit
 
 class TestsUserDefaultProtocol: XCTestCase {
-    var key: Key!
-    var defaults: UserDefaults!
-    let suiteName = "Test"
+    var key = Key.test
     var mock: UserDefaultsProtocol!
     
     func givenSavedAny(_ value: Any?) {
@@ -24,16 +22,12 @@ class TestsUserDefaultProtocol: XCTestCase {
         return string.data(using: using)
     }
     override func setUp() {
-        key = Key.test
-        defaults = UserDefaults(suiteName: suiteName)
-        mock = UserDefaultsProtocolMock(key: key, defaults: defaults)
+        let defaults = UnitTestDefaults.make()
+        mock = UserDefaultsProtocolMock(key: key, defaults: defaults!)
     }
     override func tearDown() {
+        UnitTestDefaults.clear()
         mock = nil
-        defaults = nil
-        key = nil
-        
-        UserDefaults.standard.removeSuite(named: suiteName)
     }
     
     func testWhenLoadValueGivenSavedValue() {
@@ -83,6 +77,7 @@ class TestsUserDefaultProtocol: XCTestCase {
         
         XCTAssertEqual(loadedString, text)
     }
+    // 어떤 모델을 인코딩하여 저장하고, 다시 불러온 데이터를 동일 모델로 디코딩하는 테스트
     func testSaveAndLoadModelWhenGivenModelData() {
         let latitude = 35.563305114860995
         let longitude = 129.33352452504332
@@ -103,6 +98,6 @@ class TestsUserDefaultProtocol: XCTestCase {
         }
     }
 }
-extension Key {
+fileprivate extension Key {
     static let test: Key = "test"
 }
