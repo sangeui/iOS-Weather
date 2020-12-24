@@ -8,7 +8,7 @@
 import Foundation
 
 public class ContainerViewModel {
-    private var view: WeatherView = .simple
+    public var view: Box<WeatherView> = Box(.simple)
     private let persistentManager: PersistentProtocol
     private var weathers: [WeatherInformation] = []
     
@@ -17,17 +17,29 @@ public class ContainerViewModel {
     }
 }
 extension ContainerViewModel: FullWeatherResponder {
-    public func requestFullWeatherView(_ index: Int) {
-        self.view = .full(index)
+    func requestFullWeatherView(_ index: Int) {
+        self.view.value = .full(index)
     }
 }
 extension ContainerViewModel: SimpleWeatherResponder {
-    public func reqeustSimpleWeatherView() {
-        self.view = .simple
+    func reqeustSimpleWeatherView() {
+        self.view.value = .simple
     }
 }
 extension ContainerViewModel: Weathers {
     func update(_ weathers: [WeatherInformation]) {
         self.weathers = weathers
+    }
+}
+
+final public class Box<T> {
+    var listener: ((T) -> Void)?
+    var value: T { didSet { listener?(value) } }
+    
+    init(_ value: T) { self.value = value }
+    
+    func bind(listener: ((T) -> Void)?) {
+        self.listener = listener
+        listener?(value)
     }
 }

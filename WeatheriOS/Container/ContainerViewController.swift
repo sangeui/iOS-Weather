@@ -20,4 +20,8 @@ class ContainerViewController: UIViewController {
         self.fullWeatherViewController = fullWeatherViewController
         self.simpleWeatherViewController = simpleWeatherViewController
     }
+    
+    func listenViewState() {
+        
+    }
 }
