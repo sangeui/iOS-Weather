@@ -5,6 +5,6 @@
 //  Created by 서상의 on 2020/12/24.
 //
 
-protocol SimpleWeatherResponder {
+public protocol SimpleWeatherResponder {
     func reqeustSimpleWeatherView()
 }

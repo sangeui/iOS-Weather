@@ -8,4 +8,5 @@
 public enum WeatherView {
     case full(Int)
     case simple
+    case initial
 }

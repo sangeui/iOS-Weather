@@ -8,5 +8,5 @@
 import Foundation
 
 extension Key: ExpressibleByStringLiteral {
-    init(stringLiteral value: StringLiteralType) { rawValue = value }
+    public init(stringLiteral value: StringLiteralType) { rawValue = value }
 }

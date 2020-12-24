@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NetworkProtocol {
+public protocol NetworkProtocol {
     func execute<T: Decodable>(_ url: URL, completion: @escaping Network.Completion<T>)
 }
 extension NetworkProtocol {

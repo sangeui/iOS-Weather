@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Weather {
-    struct Information: Codable {
+public enum Weather {
+    public struct Information: Codable {
         var lat: Double
         var lon: Double
         var timezone: String

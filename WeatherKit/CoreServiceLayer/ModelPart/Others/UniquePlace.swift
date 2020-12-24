@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias TimeStamp = String
+public typealias TimeStamp = String
 
 public struct UniquePlace: Codable {
     var place: Place

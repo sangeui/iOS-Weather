@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias Success = Bool
+public typealias Success = Bool
 
-protocol PersistentProtocol {
+public protocol PersistentProtocol {
     func save(_ value: Persistent.Operator.Save)
     func load(_ type: Persistent.Operator.Load) -> Any?
     func delete(_ type: Persistent.Operator.Delete) -> Success

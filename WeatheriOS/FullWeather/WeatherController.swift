@@ -6,17 +6,14 @@
 //
 
 import UIKit
+import WeatherUIKit
 import WeatherKit
 
-class PageViewController: UIPageViewController {
+class WeatherController: PageViewController {
     var weatherProvider: WeatherProvider
     
     init(_ weatherProvider: WeatherProvider) {
         self.weatherProvider = weatherProvider
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
+        super.init()
     }
 }

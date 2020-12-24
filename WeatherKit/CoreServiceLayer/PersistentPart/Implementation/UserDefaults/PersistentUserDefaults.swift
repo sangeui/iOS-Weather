@@ -7,30 +7,32 @@
 
 import Foundation
 
-class PersistentUserDefaults: PersistentProtocol {
+public class PersistentUserDefaults: PersistentProtocol {
     
     var unitDefaults: UnitDefaults
     var placeDefaults: PlaceDefaults
     
-    init(_ unitDefaults: UnitDefaults,
+    public init(_ unitDefaults: UnitDefaults,
          _ placeDefaults: PlaceDefaults) {
         self.unitDefaults = unitDefaults
         self.placeDefaults = placeDefaults
     }
     
-    func save(_ value: Persistent.Operator.Save) {
+    public func save(_ value: Persistent.Operator.Save) {
+        print("⚠️ 데이터를 저장합니다 \(value)")
         switch value {
         case .place(let place): savePlace(place)
         case .unit(let unit): saveUnit(unit)
         }
     }
-    func load(_ type: Persistent.Operator.Load) -> Any? {
+    public func load(_ type: Persistent.Operator.Load) -> Any? {
+        print("⚠️ 데이터를 불러옵니다 \(type)")
         switch type {
         case .places: return placeDefaults.value
         case .unit: return unitDefaults.value
         }
     }
-    func delete(_ type: Persistent.Operator.Delete) -> Success {
+    public func delete(_ type: Persistent.Operator.Delete) -> Success {
         switch type { case .place(let timestamp): return deletePlace(with: timestamp) }
     }
 }

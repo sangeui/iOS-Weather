@@ -13,18 +13,19 @@ class ContainerViewController: ViewController {
     let containerViewModel: ContainerViewModel
     let pageViewController: PageViewController
     let simpleWeatherViewController: SimpleWeatherViewController
+    let initialViewController: InitialViewController
     
     init(containerViewModel: ContainerViewModel,
+         initialViewController: InitialViewController,
          pageViewController: PageViewController,
          simpleWeatherViewController: SimpleWeatherViewController) {
         self.containerViewModel = containerViewModel
+        self.initialViewController = initialViewController
         self.pageViewController = pageViewController
         self.simpleWeatherViewController = simpleWeatherViewController
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        super.init()
+        listenViewState()
     }
     
     func listenViewState() {
@@ -36,6 +37,8 @@ class ContainerViewController: ViewController {
             self.present(simpleWeatherViewController, animated: true, completion: nil)
         case .full(_):
             self.present(pageViewController, animated: true, completion: nil)
+        case .initial:
+            self.present(initialViewController, animated: true, completion: nil)
         }
     }
 }

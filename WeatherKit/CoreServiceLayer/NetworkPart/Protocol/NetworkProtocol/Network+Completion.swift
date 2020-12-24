@@ -6,5 +6,5 @@
 //
 
 extension Network {
-    typealias Completion<T: Decodable> = (Result<T, Error>) -> Void
+    public typealias Completion<T: Decodable> = (Result<T, Error>) -> Void
 }

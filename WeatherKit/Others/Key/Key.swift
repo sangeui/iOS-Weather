@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct Key: RawRepresentable {
-    var rawValue: String
+public struct Key: RawRepresentable {
+    public var rawValue: String
+    public init?(rawValue: String) { self.rawValue = rawValue }
 }

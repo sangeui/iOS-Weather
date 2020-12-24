@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreLocation
+import WeatherKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,6 +18,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
+        let network = NetworkManager(network: URLSession.shared, weather: OpenWeatherMapOneCall())
+        
+        let unitDefaults = UnitDefaults()
+        let placeDefaults = PlaceDefaults()
+        let persistent = PersistentUserDefaults(unitDefaults, placeDefaults)
+        let location = LocationManager(manager: CLLocationManager())
+        let provider = Weathers(network, persistent, location)
+        provider.getUserWeather()
+        provider.weathers.bind { (information) in
+            print(information)
+        }
+    
     }
 }
 

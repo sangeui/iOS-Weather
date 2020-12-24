@@ -7,32 +7,41 @@
 
 import CoreLocation
 
-class LocationManager: NSObject {
+public class LocationManager: NSObject {
     private var locationManager: CLLocationManager
     private var completion: LocationHandler?
     
-    init(manager: CLLocationManager) {
+    public init(manager: CLLocationManager) {
         self.locationManager = manager
+        super.init()
+        self.locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
     func getLocation(completion: @escaping LocationHandler) {
+        print("⚠️ 사용자 위치를 불러옵니다")
         self.completion = completion
         locationManager.requestLocation()
     }
 }
 extension LocationManager: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .notDetermined: break
         case .restricted: break
         case .denied: break
         case .authorizedAlways: break
-        case .authorizedWhenInUse: break
+        case .authorizedWhenInUse: locationManager.requestLocation()
         @unknown default: break
         }
     }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let completion = self.completion else { return }
         guard let location = locations.first else { return }
-        completion(.success(Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)))
+        let coordinate = Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        print("⚠️ 사용자 위치를 가져왔습니다 \(coordinate)")
+        completion(.success(coordinate))
+    }
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
 }

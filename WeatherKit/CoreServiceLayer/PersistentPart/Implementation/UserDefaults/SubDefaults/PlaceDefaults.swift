@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PlaceDefaults: UserDefaultsProtocol {
+public struct PlaceDefaults: UserDefaultsProtocol {
     var key: Key
     var defaults: UserDefaults
     
-    init(key: Key = Key.place, defaults: UserDefaults = .standard) {
+    public init(key: Key = Key.place, defaults: UserDefaults = .standard) {
         self.key = key
         self.defaults = defaults
     }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-extension Persistent {
+public extension Persistent {
     enum Operator {}
 }

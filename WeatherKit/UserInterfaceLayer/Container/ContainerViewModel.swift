@@ -7,27 +7,18 @@
 
 import Foundation
 
-public class ContainerViewModel: WeatherProvider {
-    public var view: Box<WeatherView> = Box(.simple)
-    private let persistentManager: PersistentProtocol
+public class ContainerViewModel {
+    public var view: Box<WeatherView> = Box(.initial)
     
-    public var weathers: Box<[WeatherInformation]> = Box([])
-    
-    init(_ persistent: PersistentProtocol) {
-        self.persistentManager = persistent
-    }
-    
-    public func update(_ weathers: [WeatherInformation]) {
-        self.weathers.value = weathers
-    }
+    public init() {}
 }
 extension ContainerViewModel: FullWeatherResponder {
-    func requestFullWeatherView(_ index: Int) {
+    public func requestFullWeatherView(_ index: Int) {
         self.view.value = .full(index)
     }
 }
 extension ContainerViewModel: SimpleWeatherResponder {
-    func reqeustSimpleWeatherView() {
+    public func reqeustSimpleWeatherView() {
         self.view.value = .simple
     }
 }

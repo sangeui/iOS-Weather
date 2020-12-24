@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct OpenWeatherMapOneCall: WeatherProtocol {
-    var apiKey: String? = Key.API
-    var endPoint: String = Weather.EndPoint.OpenWeatherMap.onecall.base
+public struct OpenWeatherMapOneCall: WeatherProtocol {
+    public var apiKey: String? = Key.API
+    public var endPoint: String = Weather.EndPoint.OpenWeatherMap.onecall.base
     
-    func makeURL(with coordination: Coordinate, options: [Weather.Option.Forecast]) -> URL? {
+    public init() {}
+    
+    public func makeURL(with coordination: Coordinate, options: [Weather.Option.Forecast]) -> URL? {
         return URL(string: endPoint + makeQuery(coordination, options))
     }
     private func makeQuery(_ coordination: Coordinate, _ options: [Weather.Option.Forecast]) -> String {

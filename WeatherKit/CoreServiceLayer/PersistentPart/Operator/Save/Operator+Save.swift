@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Persistent.Operator {
+public extension Persistent.Operator {
     enum Save {
         case unit(TemperatureUnit)
         case place(Place)

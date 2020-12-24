@@ -7,30 +7,30 @@
 
 import Foundation
 
-protocol WeatherProtocol {
+public protocol WeatherProtocol {
     var apiKey: String? { get }
     var endPoint: String { get }
     
     func makeURL(with coordination: Coordinate, options: [Weather.Option.Forecast]) -> URL?
 }
-extension Weather {
+public extension Weather {
     enum Option {}
 }
-extension Weather {
+public extension Weather {
     typealias Completion = ((Result<Weather.Information, Error>) -> Void)
 }
-extension Weather.Option {
+public extension Weather.Option {
     enum Forecast: String {
         case current, minutely, hourly, daily
     }
 }
 extension Weather.Option.Forecast: CaseIterable {
-    static var allCases: [Weather.Option.Forecast] { return [.current, .minutely, .hourly, .daily] }
+    public static var allCases: [Weather.Option.Forecast] { return [.current, .minutely, .hourly, .daily] }
 }
-extension Weather {
+public extension Weather {
     enum EndPoint {}
 }
-extension Weather.EndPoint {
+public extension Weather.EndPoint {
     enum OpenWeatherMap {
         case onecall
         

@@ -7,11 +7,11 @@
 
 import Foundation
 
-class NetworkManager {
+public class NetworkManager {
     private let network: NetworkProtocol
     private let weather: WeatherProtocol
     
-    init(network: NetworkProtocol, weather: WeatherProtocol) {
+    public init(network: NetworkProtocol, weather: WeatherProtocol) {
         self.network = network
         self.weather = weather
     }
