@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol Weathers {
+public protocol WeatherProvider {
+    var weathers: Box<[WeatherInformation]> { get set }
     func update(_ weathers: [WeatherInformation])
 }
