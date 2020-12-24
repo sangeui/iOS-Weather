@@ -9,7 +9,7 @@ import UIKit
 import WeatherUIKit
 import WeatherKit
 
-class WeatherController: PageViewController {
+public class WeatherViewController: PageViewController {
     var weatherProvider: WeatherProvider
     
     init(_ weatherProvider: WeatherProvider) {

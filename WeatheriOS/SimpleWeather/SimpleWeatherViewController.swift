@@ -5,8 +5,10 @@
 //  Created by 서상의 on 2020/12/24.
 //
 
-import UIKit
+import WeatherUIKit
 
-class SimpleWeatherViewController: UIViewController {
+public class SimpleWeatherViewController: ViewController {
     
+    public override func viewDidLoad() {
+    }
 }

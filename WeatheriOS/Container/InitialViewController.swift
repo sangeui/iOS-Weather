@@ -9,7 +9,7 @@ import UIKit
 import WeatherUIKit
 import WeatherKit
 
-class InitialViewController: ViewController {
+public class InitialViewController: ViewController {
     var fullWeatherResponder: FullWeatherResponder
     var simpleWeatherResponder: SimpleWeatherResponder
     
@@ -21,8 +21,9 @@ class InitialViewController: ViewController {
         super.init()
     }
     
-    override func viewDidLoad() {
-
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        simpleWeatherResponder.reqeustSimpleWeatherView()
     }
 }
 

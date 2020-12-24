@@ -7,29 +7,23 @@
 
 import UIKit
 import CoreLocation
+import WeatheriOS
 import WeatherKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
+    let dependencyContainer = WeatherDependencyContainer()
 
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = ViewController()
-        window?.makeKeyAndVisible()
-        let network = NetworkManager(network: URLSession.shared, weather: OpenWeatherMapOneCall())
         
-        let unitDefaults = UnitDefaults()
-        let placeDefaults = PlaceDefaults()
-        let persistent = PersistentUserDefaults(unitDefaults, placeDefaults)
-        let location = LocationManager(manager: CLLocationManager())
-        let provider = Weathers(network, persistent, location)
-        provider.getUserWeather()
-        provider.weathers.bind { (information) in
-            print(information)
-        }
-    
+        let containerViewController = dependencyContainer.makeContainerViewController()
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = SimpleWeatherViewController()
+        window?.makeKeyAndVisible()
     }
 }
 

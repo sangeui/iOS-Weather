@@ -9,7 +9,7 @@ import UIKit
 import WeatherUIKit
 import WeatherKit
 
-class ContainerViewController: ViewController {
+public class ContainerViewController: ViewController {
     let containerViewModel: ContainerViewModel
     let pageViewController: PageViewController
     let simpleWeatherViewController: SimpleWeatherViewController
@@ -25,6 +25,10 @@ class ContainerViewController: ViewController {
         self.simpleWeatherViewController = simpleWeatherViewController
         
         super.init()
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
         listenViewState()
     }
     
@@ -34,11 +38,50 @@ class ContainerViewController: ViewController {
     func move(to view: WeatherView) {
         switch view {
         case .simple:
-            self.present(simpleWeatherViewController, animated: true, completion: nil)
+            simpleWeatherViewController.modalPresentationStyle = .fullScreen
+            addFullScreen(childViewController: simpleWeatherViewController)
         case .full(_):
             self.present(pageViewController, animated: true, completion: nil)
         case .initial:
-            self.present(initialViewController, animated: true, completion: nil)
+            addFullScreen(childViewController: initialViewController)
         }
     }
+}
+extension UIViewController {
+
+  // MARK: - Methods
+  public func addFullScreen(childViewController child: UIViewController) {
+    guard child.parent == nil else {
+      return
+    }
+
+    addChild(child)
+    view.addSubview(child.view)
+
+    child.view.translatesAutoresizingMaskIntoConstraints = false
+    let constraints = [
+      view.leadingAnchor.constraint(equalTo: child.view.leadingAnchor),
+      view.trailingAnchor.constraint(equalTo: child.view.trailingAnchor),
+      view.topAnchor.constraint(equalTo: child.view.topAnchor),
+      view.bottomAnchor.constraint(equalTo: child.view.bottomAnchor)
+    ]
+    constraints.forEach { $0.isActive = true }
+    view.addConstraints(constraints)
+
+    child.didMove(toParent: self)
+  }
+
+  public func remove(childViewController child: UIViewController?) {
+    guard let child = child else {
+      return
+    }
+
+    guard child.parent != nil else {
+      return
+    }
+    
+    child.willMove(toParent: nil)
+    child.view.removeFromSuperview()
+    child.removeFromParent()
+  }
 }

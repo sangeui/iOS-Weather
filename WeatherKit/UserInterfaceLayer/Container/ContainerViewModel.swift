@@ -8,7 +8,7 @@
 import Foundation
 
 public class ContainerViewModel {
-    public var view: Box<WeatherView> = Box(.initial)
+    public var view: Box<WeatherView> = Box(.simple)
     
     public init() {}
 }
