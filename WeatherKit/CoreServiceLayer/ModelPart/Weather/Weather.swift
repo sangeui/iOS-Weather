@@ -14,13 +14,15 @@ public enum Weather {
         var timezone: String
         var timezoneOffset: Double
         
-        var current: Current?
+        public var current: Current?
         var minutely: [Minutely]?
         var hourly: [Hourly]?
         var daily: [Daily]?
     }
     
-    struct Current: Codable {}
+    public struct Current: Codable {
+        public var dt: Double
+    }
     struct Minutely: Codable {}
     struct Hourly: Codable {}
     struct Daily: Codable {}

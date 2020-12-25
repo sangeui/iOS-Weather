@@ -8,8 +8,8 @@
 import Foundation
 
 public struct PlaceInformation: Codable {
-    var uniquePlace: UniquePlace
-    var metadata: PlaceMetaData
+    public var uniquePlace: UniquePlace
+    public var metadata: PlaceMetaData
 }
 
 extension PlaceInformation: Equatable {}

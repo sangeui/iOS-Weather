@@ -7,11 +7,11 @@
 
 import Foundation
 
-typealias Name = String
+public typealias Name = String
 
 public struct Place: Codable {
-    var coordination: Coordinate
-    var name: Name
+    public var coordination: Coordinate
+    public var name: Name
 }
 
 extension Place: Equatable {}

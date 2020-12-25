@@ -10,8 +10,8 @@ import Foundation
 public typealias TimeStamp = String
 
 public struct UniquePlace: Codable {
-    var place: Place
-    var timestamp: TimeStamp
+    public var place: Place
+    public var timestamp: TimeStamp
 }
 
 extension UniquePlace: Equatable {}

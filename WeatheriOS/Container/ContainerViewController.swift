@@ -12,13 +12,13 @@ import WeatherKit
 public class ContainerViewController: ViewController {
     let containerViewModel: ContainerViewModel
     let pageViewController: PageViewController
-    let simpleWeatherViewController: SimpleWeatherViewController
+    let simpleWeatherViewController: WeatherSimpleViewController
     let initialViewController: InitialViewController
     
     init(containerViewModel: ContainerViewModel,
          initialViewController: InitialViewController,
          pageViewController: PageViewController,
-         simpleWeatherViewController: SimpleWeatherViewController) {
+         simpleWeatherViewController: WeatherSimpleViewController) {
         self.containerViewModel = containerViewModel
         self.initialViewController = initialViewController
         self.pageViewController = pageViewController

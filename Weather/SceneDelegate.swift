@@ -19,10 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let containerViewController = dependencyContainer.makeContainerViewController()
-        
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = SimpleWeatherViewController()
+        window?.rootViewController = dependencyContainer.makeContainerViewController()
         window?.makeKeyAndVisible()
     }
 }

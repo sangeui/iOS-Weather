@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import WeatherKit
 import CoreLocation
+import WeatherKit
 
 public class WeatherDependencyContainer {
     let sharedContainerViewModel: ContainerViewModel
-    var sharedPersistent: PersistentProtocol
-    var sharedWeatherProvider: WeatherProvider!
+    public var sharedPersistent: PersistentProtocol
+    public var sharedWeatherProvider: WeatherProvider!
     
     public init() {
         func makePersistent() -> PersistentProtocol {
@@ -34,7 +34,7 @@ public class WeatherDependencyContainer {
     public func makeContainerViewController() -> ContainerViewController {
         let initialViewController = makeInitialViewController()
         let weatherViewController = makeWeatherViewController()
-        let simpleWeatherViewController = makeSimpleWeatherViewController()
+        let simpleWeatherViewController = makeWeatherListViewController()
         let containerViewController =  ContainerViewController(containerViewModel: sharedContainerViewModel, initialViewController: initialViewController, pageViewController: weatherViewController, simpleWeatherViewController: simpleWeatherViewController)
         
         return containerViewController
@@ -42,16 +42,17 @@ public class WeatherDependencyContainer {
     public func makeInitialViewController() -> InitialViewController {
         return InitialViewController(sharedContainerViewModel, sharedContainerViewModel)
     }
-    public func makeWeatherViewController() -> WeatherViewController {
+    public func makeWeatherViewController() -> WeatherPageViewController {
         if let weatherProvider = sharedWeatherProvider {
-            return WeatherViewController(weatherProvider)
+            return WeatherPageViewController(weatherProvider)
         } else {
             sharedWeatherProvider = makeWeatherProvider()
-            return WeatherViewController(sharedWeatherProvider!)
+            return WeatherPageViewController(sharedWeatherProvider!)
         }
     }
-    public func makeSimpleWeatherViewController() -> SimpleWeatherViewController {
-        let controller = SimpleWeatherViewController()
+    public func makeWeatherListViewController() -> WeatherSimpleViewController {
+        let listDependencyContainer = WeatherListDependencyContainer(weatherDependencyContainer: self)
+        let controller = listDependencyContainer.makeWeatherListViewController()
         return controller
     }
     func makeWeatherProvider() -> WeatherProvider {

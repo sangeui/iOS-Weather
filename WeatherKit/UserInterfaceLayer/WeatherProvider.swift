@@ -10,6 +10,8 @@ import Foundation
 public protocol WeatherProvider {
     
     var weathers: Box<[WeatherInformation]> { get set }
+    
+    func getUserWeather()
 }
 
 public class Weathers: WeatherProvider {

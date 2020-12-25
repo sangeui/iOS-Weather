@@ -8,7 +8,7 @@
 import Foundation
 
 public struct WeatherInformation {
-    var weather: Weather.Information?
-    var place: PlaceInformation
+    public var weather: Weather.Information?
+    public var place: PlaceInformation
 }
 

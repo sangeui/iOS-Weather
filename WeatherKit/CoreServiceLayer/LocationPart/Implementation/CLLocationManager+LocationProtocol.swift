@@ -20,7 +20,7 @@ public class LocationManager: NSObject {
     func getLocation(completion: @escaping LocationHandler) {
         print("⚠️ 사용자 위치를 불러옵니다")
         self.completion = completion
-        locationManager.requestLocation()
+        locationManager.startUpdatingLocation()
     }
 }
 extension LocationManager: CLLocationManagerDelegate {
@@ -38,8 +38,10 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let completion = self.completion else { return }
         guard let location = locations.first else { return }
         let coordinate = Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        print("⚠️ 사용자 위치를 가져왔습니다 \(coordinate)")
+        print("✅ 사용자 위치를 가져왔습니다 \(coordinate)")
         completion(.success(coordinate))
+        manager.stopUpdatingLocation()
+        self.completion = nil
     }
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
