@@ -13,32 +13,24 @@ import SangeuiLayout
 public class WeatherSimpleViewController: ViewController {
     
     var listViewModel: WeatherListViewModel
-    var toolsViewModel: WeatherToolsViewModel
+    var toolViewModel: WeatherToolViewModel
     
     public init(simpleViewModel: WeatherSimpleViewModel,
                 listViewModel: WeatherListViewModel,
-                toolsViewModel: WeatherToolsViewModel) {
+                toolsViewModel: WeatherToolViewModel) {
         self.listViewModel = listViewModel
-        self.toolsViewModel = toolsViewModel
+        self.toolViewModel = toolsViewModel
         super.init()
     }
     
     public override func viewDidLoad() {
-        let tableview = WeatherListView(viewModel: listViewModel)
+        let tableview = WeatherListView(listViewModel: listViewModel, toolViewModel: toolViewModel)
         tableview.layout(using: { proxy in
             proxy.becomeChild(of: self.view)
             proxy.leading.equal(to: self.view.leadingAnchor)
             proxy.trailing.equal(to: self.view.trailingAnchor)
             proxy.top.equal(to: self.view.topAnchor)
-        })
-        
-        let toolbar = WeatherToolView(viewModel: toolsViewModel)
-        toolbar.layout(using: { proxy in
-            proxy.becomeChild(of: self.view)
-            proxy.leading.equal(to: self.view.leadingAnchor)
-            proxy.trailing.equal(to: self.view.trailingAnchor)
             proxy.bottom.equal(to: self.view.bottomAnchor)
-            proxy.top.equal(to: tableview.bottomAnchor)
         })
     }
 }

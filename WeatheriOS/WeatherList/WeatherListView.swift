@@ -10,54 +10,92 @@ import WeatherUIKit
 import WeatherKit
 
 class WeatherListView: TableView {
-    var viewModel: WeatherListViewModel
-    var height: NSLayoutConstraint!
+    var listViewModel: WeatherListViewModel
+    var toolViewModel: WeatherToolViewModel
     
-    var safeAreaTop: CGFloat { window?.safeAreaInsets.top ?? 0 }
+    var tableViewCellHeight: CGFloat {
+        UIScreen.main.bounds.height * 0.1025
+    }
     
     var weathers: [WeatherInformation] = [] {
         didSet {
             print("✅ WeatherListView — 새로운 날씨 정보가 등록되었습니다.")
             DispatchQueue.main.async {
-                self.height.constant = CGFloat(self.weathers.count) * (75 + self.safeAreaTop)
                 self.reloadData()
             }
         }
     }
     
-    init(viewModel: WeatherListViewModel) {
-        self.viewModel = viewModel
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
+    init(listViewModel: WeatherListViewModel, toolViewModel: WeatherToolViewModel) {
+        self.listViewModel = listViewModel
+        self.toolViewModel = toolViewModel
         super.init()
-        self.height = self.heightAnchor.constraint(equalToConstant: 0)
-        self.height.isActive = true
         
         self.delegate = self
         self.dataSource = self
+        self.backgroundColor = .black
+        self.tableFooterView = UIView()
+        self.contentInsetAdjustmentBehavior = .never
         
-        viewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
-        viewModel.weatherProvider.getUserWeather()
+        listViewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
+        listViewModel.weatherProvider.getUserWeather()
     }
 }
 extension WeatherListView: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weathers.count
+        if section == 0 { return weathers.count }
+        else if section == 1 { return 1 }
+        else { return 0 }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        if indexPath.section == 0, indexPath.row == 0 { return tableViewCellHeight + safeAreaInsets.top }
+        if indexPath.section == 1 { return tableViewCellHeight * 0.75 }
+        return tableViewCellHeight
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        let test = "\(Date(timeIntervalSince1970: self.weathers[indexPath.row].weather?.current?.dt ?? 0))"
-        
-        cell.textLabel?.text = test
-        
-        return cell
-        
+        if indexPath.section == 1 { return WeatherToolCell(toolViewModel: toolViewModel) }
+        else {
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+            
+            let hStack = UIStackView()
+            hStack.distribution = .equalSpacing
+            hStack.layout(using: { proxy in
+                proxy.becomeChild(of: cell)
+                proxy.leading.equal(to: cell.layoutMarginsGuide.leadingAnchor)
+                proxy.trailing.equal(to: cell.layoutMarginsGuide.trailingAnchor)
+                proxy.top.equal(to: cell.layoutMarginsGuide.topAnchor, offsetBy: safeAreaInsets.top)
+                proxy.bottom.equal(to: cell.safeAreaLayoutGuide.bottomAnchor)
+            })
+            
+            let vStack = UIStackView()
+            vStack.axis = .vertical
+            vStack.distribution = .fillProportionally
+            hStack.addArrangedSubview(vStack)
+            
+            let sub = UILabel()
+            sub.text = "중구"
+            let main = UILabel()
+            main.text = "나의 위치"
+            let temp = UILabel()
+            temp.text = "9"
+            vStack.addArrangedSubview(sub)
+            vStack.addArrangedSubview(main)
+            hStack.addArrangedSubview(temp)
+            
+            return cell
+        }
     }
 }
 extension WeatherListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.fullWeatherResponder.requestFullWeatherView(indexPath.row)
+        listViewModel.fullWeatherResponder.requestFullWeatherView(indexPath.row)
     }
 }
 public class TableView: UITableView {

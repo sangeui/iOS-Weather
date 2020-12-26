@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class WeatherToolsViewModel {
+public class WeatherToolViewModel {
     var persistent: PersistentProtocol
     
     public init(persistent: PersistentProtocol) {
