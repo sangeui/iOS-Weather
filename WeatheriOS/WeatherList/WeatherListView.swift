@@ -55,6 +55,7 @@ class WeatherListView: TableView {
         self.backgroundColor = .black
         self.tableFooterView = UIView()
         self.contentInsetAdjustmentBehavior = .never
+        self.separatorStyle = .none
         
 //        listViewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
 //        listViewModel.weatherProvider.getUserWeather()

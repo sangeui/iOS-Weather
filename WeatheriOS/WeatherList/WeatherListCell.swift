@@ -59,9 +59,9 @@ class WeatherListCell: TableViewCell {
         main.text = "나의 위치"
         main.font = UIFont.preferredFont(forTextStyle: .title1)
         let temp = UILabel()
-        temp.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 50))
+        temp.font = UIFont.systemFont(ofSize: 50, weight: .light)
         temp.adjustsFontForContentSizeCategory = true
-        temp.text = "9"
+        temp.text = "9°"
         
         let hStack = UIStackView()
         

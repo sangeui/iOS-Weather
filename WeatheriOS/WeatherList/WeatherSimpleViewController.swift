@@ -12,15 +12,22 @@ import SangeuiLayout
 
 public class WeatherSimpleViewController: ViewController {
     
+    var viewModel: WeatherSimpleViewModel
     var listViewModel: WeatherListViewModel
     var toolViewModel: WeatherToolViewModel
     
     public init(simpleViewModel: WeatherSimpleViewModel,
                 listViewModel: WeatherListViewModel,
                 toolsViewModel: WeatherToolViewModel) {
+        self.viewModel = simpleViewModel
         self.listViewModel = listViewModel
         self.toolViewModel = toolsViewModel
         super.init()
+        
+        viewModel.search.bind { isSearchRequested in
+            if isSearchRequested { self.present(UIViewController(), animated: true, completion: nil) }
+            else { }
+        }
     }
     
     public override func viewDidLoad() {

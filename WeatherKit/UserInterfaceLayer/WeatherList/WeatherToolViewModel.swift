@@ -9,8 +9,14 @@ import Foundation
 
 public class WeatherToolViewModel {
     var persistent: PersistentProtocol
+    var searchResponder: SearchResponder
     
-    public init(persistent: PersistentProtocol) {
+    public init(persistent: PersistentProtocol,
+                searchResponder: SearchResponder) {
         self.persistent = persistent
+        self.searchResponder = searchResponder
+    }
+    public func search() {
+        self.searchResponder.requestSearchView()
     }
 }

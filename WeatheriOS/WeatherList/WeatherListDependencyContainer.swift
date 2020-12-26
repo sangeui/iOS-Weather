@@ -18,7 +18,7 @@ class WeatherListDependencyContainer {
     func makeWeatherListViewController() -> WeatherSimpleViewController {
         let simpleViewModel = makeWeatherSimpleViewModel()
         let listViewModel = makeWeatherListViewModel()
-        let toolsViewModel = makeToolsViewModel()
+        let toolsViewModel = makeToolsViewModel(simpleViewModel)
         
         return WeatherSimpleViewController(simpleViewModel: simpleViewModel, listViewModel: listViewModel, toolsViewModel: toolsViewModel)
     }
@@ -30,8 +30,8 @@ class WeatherListDependencyContainer {
         let responder = weatherDependencyContainer.sharedContainerViewModel
         return WeatherListViewModel(weatherProvider: provider, fullWeatherResponder: responder)
     }
-    func makeToolsViewModel() -> WeatherToolViewModel {
+    func makeToolsViewModel(_ searchResponder: SearchResponder) -> WeatherToolViewModel {
         let persistent = weatherDependencyContainer.sharedPersistent
-        return WeatherToolViewModel(persistent: persistent)
+        return WeatherToolViewModel(persistent: persistent, searchResponder: searchResponder)
     }
 }
