@@ -13,9 +13,13 @@ class WeatherListView: TableView {
     var listViewModel: WeatherListViewModel
     var toolViewModel: WeatherToolViewModel
     
-    var tableViewCellHeight: CGFloat {
-        UIScreen.main.bounds.height * 0.1025
-    }
+    var screenHeight: CGFloat { UIScreen.main.bounds.height }
+    var safeAreaTop: CGFloat { return safeAreaInsets.top }
+    var safeAreaBottom: CGFloat { return safeAreaInsets.bottom }
+    
+    var cellHeight: CGFloat { screenHeight * 0.1025 }
+    var topCellHeight: CGFloat { cellHeight + safeAreaTop }
+    var toolCellHeight: CGFloat { (cellHeight * 0.75) + safeAreaBottom }
     
     var weathers: [WeatherInformation] = [] {
         didSet {
@@ -27,7 +31,10 @@ class WeatherListView: TableView {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        visibleCells.forEach {
+            let positionYInView = convert($0.frame, to: self.superview).origin.y
+            print(positionYInView + safeAreaInsets.top)
+        }
     }
     
     init(listViewModel: WeatherListViewModel, toolViewModel: WeatherToolViewModel) {
@@ -50,45 +57,33 @@ extension WeatherListView: UITableViewDataSource {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return weathers.count }
+        if section == 0 { return 20 }
         else if section == 1 { return 1 }
         else { return 0 }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0, indexPath.row == 0 { return tableViewCellHeight + safeAreaInsets.top }
-        if indexPath.section == 1 { return tableViewCellHeight * 0.75 }
-        return tableViewCellHeight
+        if toolSection(indexPath) { return toolCellHeight }
+        if listTopRow(indexPath) { return cellHeight + safeAreaInsets.top }
+        else { return cellHeight }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 { return WeatherToolCell(toolViewModel: toolViewModel) }
+        if toolSection(indexPath) {
+            let cell = WeatherToolCell(toolViewModel: toolViewModel)
+            cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            cell.layer.cornerRadius = 10
+            return cell
+        }
         else {
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+            let cell: WeatherListCell
             
-            let hStack = UIStackView()
-            hStack.distribution = .equalSpacing
-            hStack.layout(using: { proxy in
-                proxy.becomeChild(of: cell)
-                proxy.leading.equal(to: cell.layoutMarginsGuide.leadingAnchor)
-                proxy.trailing.equal(to: cell.layoutMarginsGuide.trailingAnchor)
-                proxy.top.equal(to: cell.layoutMarginsGuide.topAnchor, offsetBy: safeAreaInsets.top)
-                proxy.bottom.equal(to: cell.safeAreaLayoutGuide.bottomAnchor)
-            })
-            
-            let vStack = UIStackView()
-            vStack.axis = .vertical
-            vStack.distribution = .fillProportionally
-            hStack.addArrangedSubview(vStack)
-            
-            let sub = UILabel()
-            sub.text = "중구"
-            let main = UILabel()
-            main.text = "나의 위치"
-            let temp = UILabel()
-            temp.text = "9"
-            vStack.addArrangedSubview(sub)
-            vStack.addArrangedSubview(main)
-            hStack.addArrangedSubview(temp)
-            
+            if indexPath.row == 0 {
+                cell = WeatherListCell(type: .top)
+                cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                cell.layer.cornerRadius = 10
+                cell.clipsToBounds = true
+            } else {
+                cell = WeatherListCell(type: .normal)
+            }
             return cell
         }
     }
@@ -96,6 +91,17 @@ extension WeatherListView: UITableViewDataSource {
 extension WeatherListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         listViewModel.fullWeatherResponder.requestFullWeatherView(indexPath.row)
+    }
+}
+extension WeatherListView {
+    func listTopRow(_ indexPath: IndexPath) -> Bool {
+        return listSection(indexPath) && indexPath.row == 0
+    }
+    func listSection(_ indexPath: IndexPath) -> Bool {
+        return indexPath.section == 0
+    }
+    func toolSection(_ indexPath: IndexPath) -> Bool {
+        return indexPath.section == 1
     }
 }
 public class TableView: UITableView {
