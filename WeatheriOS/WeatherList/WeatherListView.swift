@@ -18,7 +18,7 @@ class WeatherListView: TableView {
     var safeAreaBottom: CGFloat { return safeAreaInsets.bottom }
     
     var cellHeight: CGFloat { screenHeight * 0.1025 }
-    var topCellHeight: CGFloat { cellHeight + safeAreaTop }
+    var listTopCellHeight: CGFloat { cellHeight + safeAreaTop }
     var toolCellHeight: CGFloat { (cellHeight * 0.75) + safeAreaBottom }
     
     var weathers: [WeatherInformation] = [] {
@@ -31,9 +31,17 @@ class WeatherListView: TableView {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        visibleCells.forEach {
-            let positionYInView = convert($0.frame, to: self.superview).origin.y
-            print(positionYInView + safeAreaInsets.top)
+        for visibleCell in visibleCells {
+            guard let cell = visibleCell as? WeatherListCell else { continue }
+            let positionYInView = convert(visibleCell.frame, to: self.superview).origin.y
+            let position: CGFloat
+            if cell.isListTopRow { position = positionYInView + safeAreaTop }
+            else { position = positionYInView }
+            if safeAreaTop - position > 0 {
+                cell.clipViewHeightConstraint?.constant = cell.clipViewHeight! - (safeAreaTop - position)
+            } else {
+                cell.clipViewHeightConstraint?.constant = cell.clipViewHeight ?? 0
+            }
         }
     }
     
@@ -48,8 +56,8 @@ class WeatherListView: TableView {
         self.tableFooterView = UIView()
         self.contentInsetAdjustmentBehavior = .never
         
-        listViewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
-        listViewModel.weatherProvider.getUserWeather()
+//        listViewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
+//        listViewModel.weatherProvider.getUserWeather()
     }
 }
 extension WeatherListView: UITableViewDataSource {
@@ -57,13 +65,12 @@ extension WeatherListView: UITableViewDataSource {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return 20 }
-        else if section == 1 { return 1 }
-        else { return 0 }
+        if isToolSection(section) { return 1 }
+        else { return 2 }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if toolSection(indexPath) { return toolCellHeight }
-        if listTopRow(indexPath) { return cellHeight + safeAreaInsets.top }
+        if listTopRow(indexPath) { return listTopCellHeight }
         else { return cellHeight }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,18 +78,26 @@ extension WeatherListView: UITableViewDataSource {
             let cell = WeatherToolCell(toolViewModel: toolViewModel)
             cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.layer.cornerRadius = 10
+            cell.selectionStyle = .none
             return cell
         }
         else {
             let cell: WeatherListCell
             
             if indexPath.row == 0 {
-                cell = WeatherListCell(type: .top)
+                cell = WeatherListCell(type: .top(safeAreaTop))
                 cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
                 cell.layer.cornerRadius = 10
                 cell.clipsToBounds = true
             } else {
                 cell = WeatherListCell(type: .normal)
+            }
+            cell.selectionStyle = .none
+            
+            if indexPath.row == 1 {
+                cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                cell.layer.cornerRadius = 10
+                cell.clipsToBounds = true
             }
             return cell
         }
@@ -90,18 +105,26 @@ extension WeatherListView: UITableViewDataSource {
 }
 extension WeatherListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        listViewModel.fullWeatherResponder.requestFullWeatherView(indexPath.row)
+        if isListSection(indexPath.section) {
+            listViewModel.fullWeatherResponder.requestFullWeatherView(indexPath.row)
+        }
     }
 }
 extension WeatherListView {
+    func isListSection(_ section: Int) -> Bool {
+        return section == 0
+    }
+    func isToolSection(_ section: Int) -> Bool {
+        return section == 1
+    }
     func listTopRow(_ indexPath: IndexPath) -> Bool {
         return listSection(indexPath) && indexPath.row == 0
     }
     func listSection(_ indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0
+        return isListSection(indexPath.section)
     }
     func toolSection(_ indexPath: IndexPath) -> Bool {
-        return indexPath.section == 1
+        return isToolSection(indexPath.section)
     }
 }
 public class TableView: UITableView {

@@ -24,8 +24,6 @@ public class WeatherSimpleViewController: ViewController {
     }
     
     public override func viewDidLoad() {
-        self.view.layer.cornerRadius = 50
-        self.view.clipsToBounds = true
         let tableview = WeatherListView(listViewModel: listViewModel, toolViewModel: toolViewModel)
         tableview.layout(using: { proxy in
             proxy.becomeChild(of: self.view)
