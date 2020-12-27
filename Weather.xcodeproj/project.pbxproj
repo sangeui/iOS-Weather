@@ -366,6 +366,7 @@
 				4F0A8D3A259461C400B5FDB7 /* Container */,
 				4F0A8D422594622700B5FDB7 /* FullWeather */,
 				4F0A8D4F2594624100B5FDB7 /* WeatherList */,
+				4F98A32325987FEF005164F1 /* Search */,
 				4F0A8D26259461B100B5FDB7 /* WeatheriOS.h */,
 				4F0A8D27259461B100B5FDB7 /* Info.plist */,
 			);
@@ -447,6 +448,13 @@
 				4F0A8CD02593A79A00B5FDB7 /* UniquePlace+RandomCoord.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		4F98A32325987FEF005164F1 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		4F9A70632590C06600ED29FA = {
