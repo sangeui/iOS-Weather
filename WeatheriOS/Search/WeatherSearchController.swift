@@ -19,6 +19,7 @@ class WeatherSearchController: ViewController {
         super.init()
         searchBar.showsCancelButton = true
         searchBar.placeholder = "Search"
+        
         navigationBar = UINavigationBar()
         let navigationItem = UINavigationItem()
         navigationItem.prompt = "Enter city, postcode or airport location"
