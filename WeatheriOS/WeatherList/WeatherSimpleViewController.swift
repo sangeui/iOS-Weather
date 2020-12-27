@@ -24,7 +24,7 @@ public class WeatherSimpleViewController: ViewController {
         self.toolViewModel = toolsViewModel
         super.init()
         
-        let searchController = WeatherSearchController(searchResultsController: UITableViewController())
+        let searchController = WeatherSearchController()
         
         viewModel.search.bind { isSearchRequested in
             if isSearchRequested {
