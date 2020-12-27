@@ -24,8 +24,18 @@ public class WeatherSimpleViewController: ViewController {
         self.toolViewModel = toolsViewModel
         super.init()
         
+        let searchBar = UISearchBar()
+        searchBar.barStyle = .default
+        searchBar.sizeToFit()
+        searchBar.showsCancelButton = true
+        
+        let searchController = UITableViewController()
+        searchController.tableView.tableHeaderView = searchBar
+        searchController.modalPresentationStyle = .pageSheet
+        
         viewModel.search.bind { isSearchRequested in
-            if isSearchRequested { self.present(UIViewController(), animated: true, completion: nil) }
+            if isSearchRequested {
+                self.present(searchController, animated: true, completion: nil) }
             else { }
         }
     }

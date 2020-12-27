@@ -29,15 +29,14 @@ class WeatherListView: TableView {
             }
         }
     }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         for visibleCell in visibleCells {
             guard let cell = visibleCell as? WeatherListCell else { continue }
-            let positionYInView = convert(visibleCell.frame, to: self.superview).origin.y
+            let positionYInView = convert(visibleCell.frame, to: self.window).origin.y
             let position: CGFloat
             if cell.isListTopRow { position = positionYInView + safeAreaTop }
             else { position = positionYInView }
-            if safeAreaTop - position > 0 {
+            if safeAreaTop > position {
                 cell.clipViewHeightConstraint?.constant = cell.clipViewHeight! - (safeAreaTop - position)
             } else {
                 cell.clipViewHeightConstraint?.constant = cell.clipViewHeight ?? 0
@@ -52,7 +51,7 @@ class WeatherListView: TableView {
         
         self.delegate = self
         self.dataSource = self
-        self.backgroundColor = .black
+        self.backgroundColor = .clear
         self.tableFooterView = UIView()
         self.contentInsetAdjustmentBehavior = .never
         self.separatorStyle = .none
