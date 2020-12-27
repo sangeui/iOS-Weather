@@ -24,18 +24,9 @@ public class WeatherSimpleViewController: ViewController {
         self.toolViewModel = toolsViewModel
         super.init()
         
-        let searchBar = UISearchBar()
-        searchBar.barStyle = .default
-        searchBar.sizeToFit()
-        searchBar.showsCancelButton = true
-        
-        let searchController = UITableViewController()
-        searchController.tableView.tableHeaderView = searchBar
-        searchController.modalPresentationStyle = .pageSheet
-        
         viewModel.search.bind { isSearchRequested in
             if isSearchRequested {
-                self.present(searchController, animated: true, completion: nil) }
+                self.present(Weatherroller(searchResultsController: UITableViewController()), animated: true, completion: nil) }
             else { }
         }
     }

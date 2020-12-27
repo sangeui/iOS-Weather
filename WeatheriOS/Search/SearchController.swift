@@ -8,6 +8,6 @@
 import UIKit
 import WeatherUIKit
 
-class SearchController: ViewController {
+class SearchViewController: ViewController {
     
 }
