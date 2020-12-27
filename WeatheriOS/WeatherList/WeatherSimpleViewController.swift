@@ -24,9 +24,11 @@ public class WeatherSimpleViewController: ViewController {
         self.toolViewModel = toolsViewModel
         super.init()
         
+        let searchController = WeatherSearchController(searchResultsController: UITableViewController())
+        
         viewModel.search.bind { isSearchRequested in
             if isSearchRequested {
-                self.present(Weatherroller(searchResultsController: UITableViewController()), animated: true, completion: nil) }
+                self.present(searchController, animated: true, completion: nil) }
             else { }
         }
     }

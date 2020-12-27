@@ -8,7 +8,7 @@
 import UIKit
 import WeatherUIKit
 
-class Weatherroller: UISearchController {
+class WeatherSearchController: UISearchController {
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
     }
