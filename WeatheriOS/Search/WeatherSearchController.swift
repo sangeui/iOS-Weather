@@ -7,19 +7,22 @@
 
 import UIKit
 import WeatherUIKit
+import WeatherKit
 
-class WeatherSearchBar: UISearchBar {
+class WeatherSearchBar: SearchBar {
+    init(placeHolder: String) {
+        super.init()
+        
+        self.showsCancelButton = true
+        self.placeholder = placeHolder
+    }
 }
 
 class WeatherSearchController: ViewController {
-    private let searchBar = WeatherSearchBar()
+    private let searchBar = WeatherSearchBar(placeHolder: "Search")
     private var navigationBar: UINavigationBar!
-    override init() {
-        
+    init(searchResponder: SearchResponder) {
         super.init()
-        searchBar.showsCancelButton = true
-        searchBar.placeholder = "Search"
-        
         navigationBar = UINavigationBar()
         let navigationItem = UINavigationItem()
         navigationItem.prompt = "Enter city, postcode or airport location"
