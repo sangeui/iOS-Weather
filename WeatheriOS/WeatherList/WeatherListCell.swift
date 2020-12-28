@@ -28,6 +28,7 @@ class WeatherListCell: TableViewCell {
         self.type = type
         self.clipView = View()
         super.init(reuseIdentifier: "ListCell")
+        self.selectionStyle = .none
         switch type {
         case .top(let safeAreaTop):
             clipView.layout(using: { proxy in

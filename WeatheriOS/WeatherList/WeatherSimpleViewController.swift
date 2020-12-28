@@ -47,8 +47,4 @@ public class WeatherSimpleViewController: ViewController {
             proxy.bottom.equal(to: self.view.bottomAnchor)
         })
     }
-    
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
 }

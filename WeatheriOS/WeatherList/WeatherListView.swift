@@ -32,6 +32,9 @@ class WeatherListView: TableView {
         }
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if abs(contentOffset.y) > safeAreaTop {
+            
+        }
         for visibleCell in visibleCells {
             guard let cell = visibleCell as? WeatherListCell else { continue }
             let positionYInView = convert(visibleCell.frame, to: self.window).origin.y
@@ -43,6 +46,9 @@ class WeatherListView: TableView {
             } else {
                 cell.clipViewHeightConstraint?.constant = cell.clipViewHeight ?? 0
             }
+            
+            if positionYInView > safeAreaTop {
+            }
         }
     }
     
@@ -53,10 +59,9 @@ class WeatherListView: TableView {
         
         self.delegate = self
         self.dataSource = self
-        self.backgroundColor = .clear
+        self.backgroundColor = .gray
         self.contentInsetAdjustmentBehavior = .never
         self.separatorStyle = .none
-
     }
 }
 extension WeatherListView: UITableViewDataSource {
@@ -76,7 +81,7 @@ extension WeatherListView: UITableViewDataSource {
         if toolSection(indexPath) { return makeToolCell() }
         else if listTopRow(indexPath) { return makeListTopCell() }
         else if listBottomRow(indexPath) { return makeListBottomCell() }
-        else { return makeListCell() }
+        else { return makeListCell(.normal) }
     }
 }
 extension WeatherListView: UITableViewDelegate {
@@ -91,17 +96,18 @@ private extension WeatherListView {
         return WeatherToolCell(toolViewModel: toolViewModel)
     }
     func makeListTopCell() -> WeatherListCell {
-        return WeatherListCell(type: .top(safeAreaTop))
+        let cell = makeListCell(.top(safeAreaTop))
+        return cell
     }
     func makeListBottomCell() -> WeatherListCell {
-        let cell = makeListCell()
+        let cell = makeListCell(.normal)
         cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         return cell
     }
-    func makeListCell() -> WeatherListCell {
-        return WeatherListCell(type: .normal)
+    func makeListCell(_ type: ListCellType) -> WeatherListCell {
+        return WeatherListCell(type: type)
     }
     func isListSection(_ section: Int) -> Bool {
         return section == 0
