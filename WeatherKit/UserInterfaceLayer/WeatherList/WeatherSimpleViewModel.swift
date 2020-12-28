@@ -12,7 +12,10 @@ public class WeatherSimpleViewModel {
     public init() {}
 }
 extension WeatherSimpleViewModel: SearchResponder {
-    public func requestSearchView() {
+    public func openSearchView() {
         self.search.value = true
+    }
+    public func closeSearchView() {
+        self.search.value = false
     }
 }

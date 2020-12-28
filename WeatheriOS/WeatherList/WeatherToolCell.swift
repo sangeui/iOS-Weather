@@ -15,18 +15,30 @@ class WeatherToolCell: TableViewCell {
     private let searchButton = UIButton()
     private let hStack = UIStackView()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+//        self.contentView.preservesSuperviewLayoutMargins = true
+    }
+    
     init(toolViewModel: WeatherToolViewModel) {
         self.viewModel = toolViewModel
         super.init(reuseIdentifier: "ToolCell")
         
+        self.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        self.layer.cornerRadius = 10
+        self.selectionStyle = .none
+        
+//        self.contentView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
         hStack.distribution = .equalSpacing
         hStack.alignment = .top
         hStack.layout(using: { proxy in
-            proxy.becomeChild(of: self)
-            proxy.leading.equal(to: self.layoutMarginsGuide.leadingAnchor)
-            proxy.trailing.equal(to: self.layoutMarginsGuide.trailingAnchor)
-            proxy.bottom.equal(to: self.safeAreaLayoutGuide.bottomAnchor)
-            proxy.top.equal(to: self.layoutMarginsGuide.topAnchor)
+            proxy.becomeChild(of: contentView)
+            proxy.leading.equal(to: self.contentView.layoutMarginsGuide.leadingAnchor)
+            proxy.trailing.equal(to: self.contentView.layoutMarginsGuide.trailingAnchor)
+            proxy.bottom.equal(to: self.contentView.safeAreaLayoutGuide.bottomAnchor)
+            proxy.top.equal(to: self.contentView.layoutMarginsGuide.topAnchor)
         })
         
         self.backgroundColor = .clear

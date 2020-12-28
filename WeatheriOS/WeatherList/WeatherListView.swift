@@ -21,6 +21,8 @@ class WeatherListView: TableView {
     var listTopCellHeight: CGFloat { cellHeight + safeAreaTop }
     var toolCellHeight: CGFloat { (cellHeight * 0.75) + safeAreaBottom }
     
+    var sampleNumber = 5
+    
     var weathers: [WeatherInformation] = [] {
         didSet {
             print("✅ WeatherListView — 새로운 날씨 정보가 등록되었습니다.")
@@ -52,12 +54,9 @@ class WeatherListView: TableView {
         self.delegate = self
         self.dataSource = self
         self.backgroundColor = .clear
-        self.tableFooterView = UIView()
         self.contentInsetAdjustmentBehavior = .never
         self.separatorStyle = .none
-        
-//        listViewModel.weatherProvider.weathers.bind(listener: { self.weathers = $0 })
-//        listViewModel.weatherProvider.getUserWeather()
+
     }
 }
 extension WeatherListView: UITableViewDataSource {
@@ -66,7 +65,7 @@ extension WeatherListView: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isToolSection(section) { return 1 }
-        else { return 2 }
+        else { return sampleNumber }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if toolSection(indexPath) { return toolCellHeight }
@@ -74,33 +73,10 @@ extension WeatherListView: UITableViewDataSource {
         else { return cellHeight }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if toolSection(indexPath) {
-            let cell = WeatherToolCell(toolViewModel: toolViewModel)
-            cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            cell.layer.cornerRadius = 10
-            cell.selectionStyle = .none
-            return cell
-        }
-        else {
-            let cell: WeatherListCell
-            
-            if indexPath.row == 0 {
-                cell = WeatherListCell(type: .top(safeAreaTop))
-                cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-                cell.layer.cornerRadius = 10
-                cell.clipsToBounds = true
-            } else {
-                cell = WeatherListCell(type: .normal)
-            }
-            cell.selectionStyle = .none
-            
-            if indexPath.row == 1 {
-                cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-                cell.layer.cornerRadius = 10
-                cell.clipsToBounds = true
-            }
-            return cell
-        }
+        if toolSection(indexPath) { return makeToolCell() }
+        else if listTopRow(indexPath) { return makeListTopCell() }
+        else if listBottomRow(indexPath) { return makeListBottomCell() }
+        else { return makeListCell() }
     }
 }
 extension WeatherListView: UITableViewDelegate {
@@ -110,7 +86,23 @@ extension WeatherListView: UITableViewDelegate {
         }
     }
 }
-extension WeatherListView {
+private extension WeatherListView {
+    func makeToolCell() -> WeatherToolCell {
+        return WeatherToolCell(toolViewModel: toolViewModel)
+    }
+    func makeListTopCell() -> WeatherListCell {
+        return WeatherListCell(type: .top(safeAreaTop))
+    }
+    func makeListBottomCell() -> WeatherListCell {
+        let cell = makeListCell()
+        cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
+        return cell
+    }
+    func makeListCell() -> WeatherListCell {
+        return WeatherListCell(type: .normal)
+    }
     func isListSection(_ section: Int) -> Bool {
         return section == 0
     }
@@ -119,6 +111,9 @@ extension WeatherListView {
     }
     func listTopRow(_ indexPath: IndexPath) -> Bool {
         return listSection(indexPath) && indexPath.row == 0
+    }
+    func listBottomRow(_ indexPath: IndexPath) -> Bool {
+        return listSection(indexPath) && indexPath.row == sampleNumber - 1
     }
     func listSection(_ indexPath: IndexPath) -> Bool {
         return isListSection(indexPath.section)

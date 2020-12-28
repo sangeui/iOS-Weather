@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol SearchResponder {
-    func requestSearchView()
+    func openSearchView()
+    func closeSearchView()
 }

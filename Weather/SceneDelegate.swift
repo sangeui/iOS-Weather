@@ -21,6 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = dependencyContainer.makeContainerViewController()
         window?.makeKeyAndVisible()
+        
+        
+        let frame = windowScene.statusBarManager!.statusBarFrame
+        let view = UIView(frame: frame)
+        view.backgroundColor = .white
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        view.layer.cornerRadius = 10
+        window?.addSubview(view)
     }
 }
 

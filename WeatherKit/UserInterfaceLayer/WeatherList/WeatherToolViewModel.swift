@@ -17,6 +17,6 @@ public class WeatherToolViewModel {
         self.searchResponder = searchResponder
     }
     public func search() {
-        self.searchResponder.requestSearchView()
+        self.searchResponder.openSearchView()
     }
 }

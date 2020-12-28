@@ -24,16 +24,20 @@ public class WeatherSimpleViewController: ViewController {
         self.toolViewModel = toolsViewModel
         super.init()
         
-        let searchController = WeatherSearchController()
+        let searchController = WeatherSearchController(searchResponder: self.viewModel)
         
         viewModel.search.bind { isSearchRequested in
-            if isSearchRequested {
-                self.present(searchController, animated: true, completion: nil) }
-            else { }
+            if isSearchRequested { self.present(searchController, animated: true, completion: nil) }
+            else {
+                if let presentedController = self.presentedViewController as? WeatherSearchController {
+                    presentedController.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     
     public override func viewDidLoad() {
+        super.viewDidLoad()
         let tableview = WeatherListView(listViewModel: listViewModel, toolViewModel: toolViewModel)
         tableview.layout(using: { proxy in
             proxy.becomeChild(of: self.view)
@@ -42,5 +46,9 @@ public class WeatherSimpleViewController: ViewController {
             proxy.top.equal(to: self.view.topAnchor)
             proxy.bottom.equal(to: self.view.bottomAnchor)
         })
+    }
+    
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
     }
 }
