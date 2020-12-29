@@ -27,7 +27,7 @@ final public class Box<T> {
     var listener: ((T) -> Void)?
     var value: T { didSet { listener?(value) } }
     
-    init(_ value: T) { self.value = value }
+    public init(_ value: T) { self.value = value }
     
     public func bind(listener: ((T) -> Void)?) {
         self.listener = listener

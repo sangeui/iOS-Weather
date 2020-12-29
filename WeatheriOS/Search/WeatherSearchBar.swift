@@ -6,9 +6,10 @@
 //
 
 import WeatherUIKit
+import UIKit
 
 class WeatherSearchBar: SearchBar {
-    init(placeHolder: String) {
+    init(delegate: UISearchBarDelegate, placeHolder: String) {
         super.init()
         
         self.showsCancelButton = true
