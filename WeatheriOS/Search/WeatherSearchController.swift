@@ -20,7 +20,8 @@ private extension UINavigationItem {
     }
 }
 private extension UINavigationBar {
-    static func makeNavigationBar(with items: [UINavigationItem], style: UIBarStyle = .black, tint: UIColor = .white) -> UINavigationBar {
+    typealias Items = [UINavigationItem]
+    static func makeNavigationBar(with items: Items, style: UIBarStyle = .black, tint: UIColor = .white) -> UINavigationBar {
         let navigationBar = UINavigationBar()
         navigationBar.setItems(items, animated: true)
         navigationBar.barStyle = style
@@ -36,19 +37,41 @@ private extension UIVisualEffectView {
         return effectView
     }
 }
+private extension UITableView {
+    typealias Delegate = UITableViewDelegate & UITableViewDataSource
+    
+    static func makeTableView(delegate: Delegate, backgroundView: UIView? = nil) -> UITableView {
+        let tableView = UITableView()
+        tableView.delegate = delegate
+        tableView.dataSource = delegate
+        tableView.backgroundView = backgroundView
+        tableView.separatorStyle = .none
+        return tableView
+    }
+}
+private extension MKLocalSearchCompleter {
+    typealias Delegate = MKLocalSearchCompleterDelegate
+    static func makeCompleter(delegate: Delegate) -> MKLocalSearchCompleter {
+        let completer = MKLocalSearchCompleter()
+        completer.delegate = delegate
+        completer.pointOfInterestFilter = .init(including: [.airport])
+        completer.resultTypes = [.address, .pointOfInterest]
+        return completer
+    }
+}
 
 class WeatherSearchController: ViewController {
+    // MARK: - 유저 인터페이스
+    private var searchBar: WeatherSearchBar!
     private var navBar: UINavigationBar!
     private var navItem: UINavigationItem!
-    private var searchBar: WeatherSearchBar!
-    
+    private var resultTableView: UITableView!
+    // MARK: -
     private let holder = "Search"
     private let prompt = "Enter city, postcode or airport location"
-    
-    private let resultTableView = UITableView()
-    
+    // MARK: -
     private var searchResults = [MKLocalSearchCompletion]()
-    private let searchCompleter = MKLocalSearchCompleter()
+    private var searchCompleter: MKLocalSearchCompleter!
     
     private let searchResponder: SearchResponder
     private var emptyResults: Bool = false
@@ -57,9 +80,12 @@ class WeatherSearchController: ViewController {
         self.searchResponder = searchResponder
         super.init()
         
+        // 프로퍼티 초기화
         searchBar = WeatherSearchBar(delegate: self, placeHolder: holder)
         navItem = UINavigationItem.makeNavigationItem(prompt: prompt, titleView: searchBar)
         navBar = UINavigationBar.makeNavigationBar(with: [navItem])
+        resultTableView = UITableView.makeTableView(delegate: self, backgroundView: UIVisualEffectView.makeVisualEffectView())
+        searchCompleter = MKLocalSearchCompleter.makeCompleter(delegate: self)
         
         navBar.layout(using: { proxy in
             proxy.becomeChild(of: self.view)
@@ -69,8 +95,6 @@ class WeatherSearchController: ViewController {
             proxy.height.equal(toConstant: 44)
         })
         
-        resultTableView.backgroundView = UIVisualEffectView.makeVisualEffectView()
-        resultTableView.separatorStyle = .none
         resultTableView.layout(using: { proxy in
             proxy.becomeChild(of: self.view)
             proxy.leading.equal(to: self.view.leadingAnchor)
@@ -78,12 +102,6 @@ class WeatherSearchController: ViewController {
             proxy.bottom.equal(to: self.view.bottomAnchor)
             proxy.top.equal(to: navBar.bottomAnchor)
         })
-        
-        searchCompleter.delegate = self
-        searchCompleter.queryFragment = searchBar.text!
-        
-        resultTableView.dataSource = self
-        resultTableView.delegate = self
     }
     
     @objc func willEnterForeground() {
@@ -144,37 +162,34 @@ extension WeatherSearchController: UITableViewDataSource {
 }
 extension WeatherSearchController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 스크롤이 되었을 때, 사용자가 목록을 볼 수 있도록 키보드 인터페이스를 숨겨야 한다.
         if !searchResults.isEmpty { searchBar.endEditing(true) }
     }
 }
 extension WeatherSearchController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // UISearchBar의 취소 버튼이 터치되면, 현재 뷰 컨트롤러를 끝내야 한다.
         searchResponder.closeSearchView()
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            searchResults.removeAll(); resultTableView.reloadData()
-            emptyResults = false
-        }
-        else {
-            resultTableView.reloadData()
-            searchCompleter.pointOfInterestFilter = .init(including: [.airport])
-            searchCompleter.resultTypes = [.address, .pointOfInterest]
-            searchCompleter.queryFragment = searchText
-        }
+        if searchText.isEmpty { searchResults.removeAll(); emptyResults = false }
+        else { searchCompleter.queryFragment = searchText }
+        resultTableView.reloadData()
     }
 }
 extension WeatherSearchController: MKLocalSearchCompleterDelegate {
+    func appleWeatherLike(completion: MKLocalSearchCompletion) -> Bool {
+        // 사용자가 우편번호를 입력했을 경우
+        if completion.title.isInteger { return true }
+        // 행정구역의 경우 subtitle이 존재하지 않으며, title은 하나 이상의 쉼표로 구분되어 있다
+        else if completion.title.isSeparated(by: ","), completion.subtitle.isEmpty { return true }
+        else { return false }
+    }
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        completer.results.forEach { print($0.title, "||||", $0.subtitle)}
-        searchResults = completer.results.filter {
-            if Int($0.title) != nil { return true }
-            else if $0.title.components(separatedBy: ",").count > 1,
-                    $0.subtitle.isEmpty { return true }
-            else { return false }
-        }
-        if searchResults.count == 0 { emptyResults = true }
+        searchResults = completer.results.filter(appleWeatherLike(completion:))
+        if searchResults.isEmpty { emptyResults = true }
         else { emptyResults = false }
+        
         resultTableView.reloadData()
     }
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
