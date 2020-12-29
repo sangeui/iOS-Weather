@@ -12,6 +12,7 @@ class WeatherSearchBar: SearchBar {
     init(delegate: UISearchBarDelegate, placeHolder: String) {
         super.init()
         
+        self.delegate = delegate
         self.showsCancelButton = true
         self.placeholder = placeHolder
     }

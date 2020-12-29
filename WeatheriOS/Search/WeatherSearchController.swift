@@ -70,10 +70,12 @@ class WeatherSearchController: ViewController {
     private let holder = "Search"
     private let prompt = "Enter city, postcode or airport location"
     // MARK: -
-    private var searchResults = [MKLocalSearchCompletion]()
     private var searchCompleter: MKLocalSearchCompleter!
+    private var searchResults = [MKLocalSearchCompletion]()
     
     private let searchResponder: SearchResponder
+    
+    private var searchResultsCache = [String:[MKLocalSearchCompletion]]()
     private var emptyResults: Bool = false
     
     init(searchResponder: SearchResponder) {
@@ -129,31 +131,40 @@ class WeatherSearchController: ViewController {
 }
 extension WeatherSearchController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if emptyResults || (searchCompleter.isSearching && !searchBar.text!.isEmpty) { return 1 }
-        else { return searchResults.count }
+        return searchResults.count
+//        if emptyResults || (searchCompleter.isSearching && !searchBar.text!.isEmpty) { return 1 }
+//        else { return searchResults.count }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if searchCompleter.isSearching && indexPath.row == 0 && searchResults.isEmpty {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "Indicator")
-            cell.backgroundColor = .clear
-            cell.textLabel?.textColor = .gray
-            cell.textLabel?.text = "validating city..."
-            return cell
-        } else if emptyResults {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "Indicator")
-            cell.backgroundColor = .clear
-            cell.textLabel?.textColor = .gray
-            cell.textLabel?.text = "No results found."
-            return cell
+        let cell = WeatherSearchResultCell(reuseIdentifier: "ResultCell")
+        let result = searchResults[indexPath.row]
+        let text = result.combineTitleWithSpace
+        
+        if let nsText = text as? NSString {
+            let nsRange = nsText.range(of: searchCompleter.queryFragment)
+            let attributedText = NSMutableAttributedString(string: text)
+            attributedText.addAttribute(.foregroundColor, value: UIColor.white, range: nsRange)
+            cell.setAttributedText(attributedText)
         } else {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "SearchCell")
-            let result = searchResults[indexPath.row]
-            cell.textLabel?.text = result.title + " " + result.subtitle
-            cell.textLabel?.textColor = .gray
-            cell.backgroundColor = .clear
-            return cell
+            cell.setText(text)
         }
+        return cell
+//        if searchCompleter.isSearching && indexPath.row == 0 && searchResults.isEmpty {
+//            let cell = UITableViewCell(style: .default, reuseIdentifier: "Indicator")
+//            cell.backgroundColor = .clear
+//            cell.textLabel?.textColor = .gray
+//            cell.textLabel?.text = "validating city..."
+//            return cell
+//        } else if emptyResults {
+//            let cell = UITableViewCell(style: .default, reuseIdentifier: "Indicator")
+//            cell.backgroundColor = .clear
+//            cell.textLabel?.textColor = .gray
+//            cell.textLabel?.text = "No results found."
+//            return cell
+//        } else {
+//
+//        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -161,6 +172,16 @@ extension WeatherSearchController: UITableViewDataSource {
     }
 }
 extension WeatherSearchController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < searchResults.count else { return }
+        let result = searchResults[indexPath.row]
+        MKLocalSearch(request: MKLocalSearch.Request(completion: result)).start { (response, error) in
+            guard let response = response else { return }
+            print(response.boundingRegion.center.latitude, response.boundingRegion.center.longitude)
+            print(response.mapItems.first?.name)
+            print(response.mapItems)
+        }
+    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 스크롤이 되었을 때, 사용자가 목록을 볼 수 있도록 키보드 인터페이스를 숨겨야 한다.
         if !searchResults.isEmpty { searchBar.endEditing(true) }
@@ -173,6 +194,7 @@ extension WeatherSearchController: UISearchBarDelegate {
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty { searchResults.removeAll(); emptyResults = false }
+//        else if let cachedResults = searchResultsCache[searchText] { searchResults = cachedResults }
         else { searchCompleter.queryFragment = searchText }
         resultTableView.reloadData()
     }
@@ -186,9 +208,15 @@ extension WeatherSearchController: MKLocalSearchCompleterDelegate {
         else { return false }
     }
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results.filter(appleWeatherLike(completion:))
-        if searchResults.isEmpty { emptyResults = true }
-        else { emptyResults = false }
+//        print(completer.queryFragment)
+//        print(completer.results.forEach({ print($0.combineTitleWithSpace) }))
+//        let filteredResults = completer.results.filter(appleWeatherLike(completion:))
+//        searchResultsCache.updateValue(filteredResults, forKey: completer.queryFragment)
+        searchResults = completer.results
+        // 필터 결과, 전달할 결과가 존재하지 않으면 적절한 프로퍼티를 참으로 설정한다
+//        if filteredResults.isEmpty { emptyResults = true }
+//        // 그렇지 않으면 거짓으로 설정한다
+//        else { emptyResults = false }
         
         resultTableView.reloadData()
     }
